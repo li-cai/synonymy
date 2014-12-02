@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
-
+@interface ViewController()
+@property (nonatomic) IBOutlet UITextView *textView;
 @end
 
 @implementation ViewController

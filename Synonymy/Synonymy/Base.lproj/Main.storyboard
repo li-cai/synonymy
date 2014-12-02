@@ -16,33 +16,66 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uQO-Oz-uSj">
-                                <rect key="frame" x="0.0" y="293" width="600" height="500"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQO-Oz-uSj">
+                                <rect key="frame" x="0.0" y="378" width="600" height="280"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="0HV-bq-0yJ"/>
+                                    <constraint firstAttribute="height" constant="280" id="lvt-SG-rZJ"/>
+                                </constraints>
                                 <string key="text">The evening air was pale and chilly and after every charge and thud of the footballers the greasy leather orb flew like a heavy bird through the grey light. </string>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="38"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Synonymy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQV-q2-4Rn">
-                                <rect key="frame" x="-83" y="126" width="466" height="125"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Synonymy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQV-q2-4Rn">
+                                <rect key="frame" x="-1" y="211" width="306" height="125"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="306" id="AGM-NX-OJ1"/>
+                                    <constraint firstAttribute="height" constant="125" id="vVY-Kr-naC"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="65"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="A unique way to rephrase sentences" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7OU-Kw-QY9">
-                                <rect key="frame" x="-90" y="216" width="562" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="A unique way to rephrase sentences" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7OU-Kw-QY9">
+                                <rect key="frame" x="3" y="301" width="381" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="021-zV-ZtJ"/>
+                                    <constraint firstAttribute="width" constant="381" id="kwH-K5-UgC"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-LightOblique" family="Avenir" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6us-x4-sBl">
+                                <rect key="frame" x="511" y="259" width="46" height="30"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Hx-2o-UGh">
+                                <rect key="frame" x="630" y="660" width="50" height="60"/>
+                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="85"/>
+                                <state key="normal" title="〉">
+                                    <color key="titleColor" red="0.41568627450980389" green="0.63921568627450975" blue="0.41568627450980389" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.94509803921568625" green="0.76862745098039209" blue="0.058823529411764705" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="7OU-Kw-QY9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pow-P8-221"/>
-                            <constraint firstItem="ZQV-q2-4Rn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="VcP-mK-Juv"/>
+                            <constraint firstItem="7OU-Kw-QY9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="85" id="Pow-P8-221"/>
+                            <constraint firstItem="ZQV-q2-4Rn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="83" id="VcP-mK-Juv"/>
+                            <constraint firstItem="ZQV-q2-4Rn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="191" id="are-7J-e7U"/>
+                            <constraint firstItem="uQO-Oz-uSj" firstAttribute="top" secondItem="ZQV-q2-4Rn" secondAttribute="bottom" constant="42" id="feT-ky-xaV"/>
+                            <constraint firstItem="uQO-Oz-uSj" firstAttribute="top" secondItem="7OU-Kw-QY9" secondAttribute="bottom" constant="27" id="jbe-xJ-JFr"/>
                             <constraint firstAttribute="centerX" secondItem="uQO-Oz-uSj" secondAttribute="centerX" id="wsO-KR-rLD"/>
+                            <constraint firstItem="7OU-Kw-QY9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="281" id="ydK-R4-pv6"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="uQO-Oz-uSj" id="Nyr-Vm-IFQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
