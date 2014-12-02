@@ -14,6 +14,7 @@
 		3F0745871A2D132B0086613B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F0745861A2D132B0086613B /* Images.xcassets */; };
 		3F07458A1A2D132B0086613B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F0745881A2D132B0086613B /* LaunchScreen.xib */; };
 		3F0745961A2D132C0086613B /* SynonymyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0745951A2D132C0086613B /* SynonymyTests.m */; };
+		3F1B2F3F1A2D3F2800FFFE03 /* Sentence.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B2F3E1A2D3F2800FFFE03 /* Sentence.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		3F07458F1A2D132C0086613B /* SynonymyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SynonymyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0745941A2D132C0086613B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F0745951A2D132C0086613B /* SynonymyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SynonymyTests.m; sourceTree = "<group>"; };
+		3F1B2F3D1A2D3F2800FFFE03 /* Sentence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sentence.h; sourceTree = "<group>"; };
+		3F1B2F3E1A2D3F2800FFFE03 /* Sentence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sentence.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +84,10 @@
 		3F0745781A2D132B0086613B /* Synonymy */ = {
 			isa = PBXGroup;
 			children = (
+				3F1B2F3C1A2D3F0300FFFE03 /* Models */,
+				3F1B2F401A2D3FA000FFFE03 /* Controllers */,
 				3F07457D1A2D132B0086613B /* AppDelegate.h */,
 				3F07457E1A2D132B0086613B /* AppDelegate.m */,
-				3F0745801A2D132B0086613B /* ViewController.h */,
-				3F0745811A2D132B0086613B /* ViewController.m */,
 				3F0745831A2D132B0086613B /* Main.storyboard */,
 				3F0745861A2D132B0086613B /* Images.xcassets */,
 				3F0745881A2D132B0086613B /* LaunchScreen.xib */,
@@ -117,6 +120,24 @@
 				3F0745941A2D132C0086613B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3F1B2F3C1A2D3F0300FFFE03 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3F1B2F3D1A2D3F2800FFFE03 /* Sentence.h */,
+				3F1B2F3E1A2D3F2800FFFE03 /* Sentence.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		3F1B2F401A2D3FA000FFFE03 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3F0745801A2D132B0086613B /* ViewController.h */,
+				3F0745811A2D132B0086613B /* ViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +242,7 @@
 			files = (
 				3F0745821A2D132B0086613B /* ViewController.m in Sources */,
 				3F07457F1A2D132B0086613B /* AppDelegate.m in Sources */,
+				3F1B2F3F1A2D3F2800FFFE03 /* Sentence.m in Sources */,
 				3F07457C1A2D132B0086613B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +436,7 @@
 				3F07459B1A2D132C0086613B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3F07459C1A2D132C0086613B /* Build configuration list for PBXNativeTarget "SynonymyTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +445,7 @@
 				3F07459E1A2D132C0086613B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

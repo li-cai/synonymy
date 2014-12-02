@@ -10,4 +10,6 @@
 
 @interface Sentence : NSObject
 
+@property (nonatomic, copy) NSString *fullsentence;
+
 @end
