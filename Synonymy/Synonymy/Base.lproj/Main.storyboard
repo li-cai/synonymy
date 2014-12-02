@@ -55,7 +55,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="kSs-ry-BBa" kind="showDetail" identifier="synonymize" id="chB-tX-ULu"/>
+                                    <segue destination="kSs-ry-BBa" kind="show" identifier="synonymize" id="chB-tX-ULu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -82,7 +82,7 @@
         <!--Synonym VC-->
         <scene sceneID="wWk-BU-WYs">
             <objects>
-                <viewController id="kSs-ry-BBa" userLabel="Synonym VC" sceneMemberID="viewController">
+                <viewController id="kSs-ry-BBa" userLabel="Synonym VC" customClass="SynonymVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1R9-Vs-x6Z"/>
                         <viewControllerLayoutGuide type="bottom" id="e5F-65-4bb"/>
@@ -91,10 +91,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Placeholder! :)" translatesAutoresizingMaskIntoConstraints="NO" id="6Rj-es-Rj4">
-                                <rect key="frame" x="60" y="165" width="645" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="50"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Rj-es-Rj4">
+                                <rect key="frame" x="60" y="165" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Placeholder! :)">
+                                        <attributes>
+                                            <font key="NSFont" size="64" name="Avenir-Book"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -104,6 +111,9 @@
                             <constraint firstAttribute="centerX" secondItem="6Rj-es-Rj4" secondAttribute="centerX" id="8yh-vU-nUV"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="swipeArea" destination="6Rj-es-Rj4" id="bLV-Lj-rgh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Trc-3W-ygL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
