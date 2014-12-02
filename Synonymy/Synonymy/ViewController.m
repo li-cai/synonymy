@@ -19,11 +19,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [_enterArrow addTarget:self action:@selector(onArrowTap) forControlEvents:UIControlEventTouchUpInside];
+//    [_enterArrow addTarget:self action:@selector(onArrowTap) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) onArrowTap {
-    NSLog(@"merp tapped!");
+//    NSLog(@"merp tapped!");
 }
 
 - (void)didReceiveMemoryWarning {
