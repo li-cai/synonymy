@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "Sentence.h"
+#import "SynonymVC.h"
 
 @interface ViewController()
 @property (nonatomic) IBOutlet UITextView *textView;
@@ -30,8 +31,10 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"synonymize"]) {
-        NSLog(@"merp");
+        Sentence *sentence = [[Sentence alloc] initWithSentence:_textView.text];
         
+        SynonymVC *controller = (SynonymVC *) segue.destinationViewController;
+        [controller setSentence:sentence];
     }
 }
 

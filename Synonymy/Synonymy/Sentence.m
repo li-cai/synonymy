@@ -10,4 +10,25 @@
 
 @implementation Sentence
 
+- (instancetype) initWithSentence:(NSString *)sentence {
+    if (self) {
+        _fullsentence = [self removeNonLettersFrom:sentence];
+        
+        _synonyms = [NSMutableDictionary dictionary];
+    }
+    
+    return self;
+}
+
+- (NSString *) removeNonLettersFrom:(NSString *)string {
+    NSCharacterSet *lettersCharSet = [NSCharacterSet letterCharacterSet];
+    NSCharacterSet *punctuationCharSet = [NSCharacterSet punctuationCharacterSet];
+    
+    NSMutableCharacterSet *validationCharSet = [lettersCharSet mutableCopy];
+    [validationCharSet formUnionWithCharacterSet:punctuationCharSet];
+                                                
+    return [[string componentsSeparatedByCharactersInSet:
+           [validationCharSet invertedSet]] componentsJoinedByString:@" "];
+}
+
 @end

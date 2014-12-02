@@ -10,18 +10,29 @@
 
 @interface SynonymVC ()
 
+@property (nonatomic, retain) IBOutlet UITextView *swipeArea;
+
+@property (nonatomic, strong) Sentence *sentence;
+
 @end
 
 @implementation SynonymVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
+    
+    [_swipeArea setText:_sentence.fullsentence];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) setSentence:(Sentence *)sentence {
+    _sentence = sentence;
 }
 
 /*

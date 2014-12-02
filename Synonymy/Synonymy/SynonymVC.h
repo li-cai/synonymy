@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Sentence.h"
 
 @interface SynonymVC : UIViewController
+
+- (void) setSentence:(Sentence *)sentence;
 
 @end
