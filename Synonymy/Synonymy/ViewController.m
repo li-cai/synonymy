@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Sentence.h"
 
 @interface ViewController()
 @property (nonatomic) IBOutlet UITextView *textView;
@@ -17,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view, typically from a nib.
     
 //    [_enterArrow addTarget:self action:@selector(onArrowTap) forControlEvents:UIControlEventTouchUpInside];
@@ -24,6 +26,13 @@
 
 - (void) onArrowTap {
 //    NSLog(@"merp tapped!");
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"synonymize"]) {
+        NSLog(@"merp");
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
