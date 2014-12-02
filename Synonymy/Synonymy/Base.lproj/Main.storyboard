@@ -47,12 +47,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6us-x4-sBl">
-                                <rect key="frame" x="511" y="259" width="46" height="30"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Hx-2o-UGh">
                                 <rect key="frame" x="630" y="660" width="50" height="60"/>
                                 <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="85"/>
@@ -74,6 +68,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="enterArrow" destination="0Hx-2o-UGh" id="956-J0-wWt"/>
                         <outlet property="textView" destination="uQO-Oz-uSj" id="Nyr-Vm-IFQ"/>
                     </connections>
                 </viewController>
