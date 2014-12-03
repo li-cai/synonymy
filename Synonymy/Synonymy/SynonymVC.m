@@ -30,20 +30,15 @@
 
 - (void) onSingleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint tapPt = [recognizer locationInView:_swipeArea];
-    
 //    NSLog(@"%.2f %.2f", tapPt.x, tapPt.y);
     
     NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
+    //NSLog(@"%@", tappedWord);
     
-    NSLog(@"%@", tappedWord);
-    [self colorWord:tappedWord];
+    NSRange wordRange = [_swipeArea.text rangeOfString:tappedWord];
+    
+    [self colorWord:wordRange];
 }
-
-//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-//    CGPoint point = [[touches anyObject] locationInView:self.view];
-//    NSString *wordTapped = [self getWordAtPosition:point inTextView:_swipeArea];
-//    NSLog(@"%@", wordTapped);
-//}
 
 - (NSString *) getWordAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
     // get location
@@ -56,19 +51,22 @@
     return [textView textInRange:range];
 }
 
-- (void) colorWord:(NSString *)colorword {
+- (void) colorWord:(NSRange)range {
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
     
-    for (NSString *word in _sentence.words) {
-        if ([word isEqualToString:colorword]) {
-            NSRange range = [_swipeArea.text rangeOfString:word];
-            
-            UIColor *seaGreen = [UIColor colorWithRed:106.0/255 green:163.0/255 blue:106.0/255 alpha:1];
-            
-            [string addAttribute:NSForegroundColorAttributeName value:seaGreen range:range];
-            break;
-        }
-    }
+    UIColor *seaGreen = [UIColor colorWithRed:106.0/255 green:163.0/255 blue:106.0/255 alpha:1];
+    [string addAttribute:NSForegroundColorAttributeName value:seaGreen range:range];
+    
+//    for (NSString *word in _sentence.words) {
+//        if ([word isEqualToString:colorword]) {
+//            NSRange range = [_swipeArea.text rangeOfString:word];
+//            
+//            UIColor *seaGreen = [UIColor colorWithRed:106.0/255 green:163.0/255 blue:106.0/255 alpha:1];
+//            
+//            [string addAttribute:NSForegroundColorAttributeName value:seaGreen range:range];
+//            break;
+//        }
+//    }
     
     [_swipeArea setAttributedText:string];
 }

@@ -98,11 +98,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Synonymy/SynonymVC.m"
-            timestampString = "439260708.10142"
+            timestampString = "439263439.679954"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "-getWordAtPosition:inTextView:"
             landmarkType = "5">
          </BreakpointContent>
