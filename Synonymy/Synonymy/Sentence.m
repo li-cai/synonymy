@@ -14,6 +14,8 @@
     if (self) {
         _fullsentence = [self removeNonLettersFrom:sentence];
         
+        _words = [_fullsentence componentsSeparatedByString:@" "];
+        
         _synonyms = [NSMutableDictionary dictionary];
     }
     

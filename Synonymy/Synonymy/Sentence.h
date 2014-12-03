@@ -11,6 +11,7 @@
 @interface Sentence : NSObject
 
 @property (nonatomic, copy) NSString *fullsentence;
+@property (nonatomic, strong) NSArray *words;
 @property (nonatomic, strong) NSMutableDictionary *synonyms;
 
 - (instancetype) initWithSentence:(NSString *)sentence;

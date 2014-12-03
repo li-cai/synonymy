@@ -36,6 +36,7 @@
     NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
     
     NSLog(@"%@", tappedWord);
+    [self colorWord:tappedWord];
 }
 
 //- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -45,9 +46,6 @@
 //}
 
 - (NSString *) getWordAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
-    // eliminate scroll offset
-    //position.y = textView.contentOffset.y;
-    
     // get location
     UITextPosition *tapPos = [textView closestPositionToPoint:position];
     
@@ -56,6 +54,23 @@
                                                     withGranularity:UITextGranularityWord
                                                         inDirection:UITextLayoutDirectionRight];
     return [textView textInRange:range];
+}
+
+- (void) colorWord:(NSString *)colorword {
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
+    
+    for (NSString *word in _sentence.words) {
+        if ([word isEqualToString:colorword]) {
+            NSRange range = [_swipeArea.text rangeOfString:word];
+            
+            UIColor *seaGreen = [UIColor colorWithRed:106.0/255 green:163.0/255 blue:106.0/255 alpha:1];
+            
+            [string addAttribute:NSForegroundColorAttributeName value:seaGreen range:range];
+            break;
+        }
+    }
+    
+    [_swipeArea setAttributedText:string];
 }
 
 - (void)didReceiveMemoryWarning {
