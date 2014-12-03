@@ -9,11 +9,8 @@
 #import "SynonymVC.h"
 
 @interface SynonymVC ()
-
 @property (nonatomic, retain) IBOutlet UITextView *swipeArea;
-
 @property (nonatomic, strong) Sentence *sentence;
-
 @end
 
 @implementation SynonymVC
@@ -24,6 +21,41 @@
     // Do any additional setup after loading the view.
     
     [_swipeArea setText:_sentence.fullsentence];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
+    
+    [singleTap setNumberOfTapsRequired:1];
+    [_swipeArea addGestureRecognizer:singleTap];
+}
+
+- (void) onSingleTap:(UITapGestureRecognizer *)recognizer {
+    CGPoint tapPt = [recognizer locationInView:_swipeArea];
+    
+//    NSLog(@"%.2f %.2f", tapPt.x, tapPt.y);
+    
+    NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
+    
+    NSLog(@"%@", tappedWord);
+}
+
+//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+//    CGPoint point = [[touches anyObject] locationInView:self.view];
+//    NSString *wordTapped = [self getWordAtPosition:point inTextView:_swipeArea];
+//    NSLog(@"%@", wordTapped);
+//}
+
+- (NSString *) getWordAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
+    // eliminate scroll offset
+    //position.y = textView.contentOffset.y;
+    
+    // get location
+    UITextPosition *tapPos = [textView closestPositionToPoint:position];
+    
+    // get word at position
+    UITextRange *range = [textView.tokenizer rangeEnclosingPosition:tapPos
+                                                    withGranularity:UITextGranularityWord
+                                                        inDirection:UITextLayoutDirectionRight];
+    return [textView textInRange:range];
 }
 
 - (void)didReceiveMemoryWarning {
