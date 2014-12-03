@@ -35,9 +35,9 @@
     NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
     //NSLog(@"%@", tappedWord);
     
-    NSRange wordRange = [_swipeArea.text rangeOfString:tappedWord];
+    //NSRange wordRange = [_swipeArea.text rangeOfString:tappedWord];
     
-    [self colorWord:wordRange];
+    //[self colorWord:wordRange];
 }
 
 - (NSString *) getWordAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
@@ -45,10 +45,26 @@
     UITextPosition *tapPos = [textView closestPositionToPoint:position];
     
     // get word at position
-    UITextRange *range = [textView.tokenizer rangeEnclosingPosition:tapPos
+    UITextRange *textRange = [textView.tokenizer rangeEnclosingPosition:tapPos
                                                     withGranularity:UITextGranularityWord
                                                         inDirection:UITextLayoutDirectionRight];
-    return [textView textInRange:range];
+    
+    NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
+    [self colorWord:range];
+    
+    return [textView textInRange:textRange];
+}
+
+- (NSRange) rangeInTextView:(UITextView *)textView textRange:(UITextRange *)txtRange {
+    UITextPosition *beginning = textView.beginningOfDocument;
+    
+    UITextPosition *start = txtRange.start;
+    UITextPosition *end = txtRange.end;
+    
+    const NSInteger location = [textView offsetFromPosition:beginning toPosition:start];
+    const NSInteger length = [textView offsetFromPosition:start toPosition:end];
+    
+    return NSMakeRange(location, length);
 }
 
 - (void) colorWord:(NSRange)range {
@@ -56,17 +72,6 @@
     
     UIColor *seaGreen = [UIColor colorWithRed:106.0/255 green:163.0/255 blue:106.0/255 alpha:1];
     [string addAttribute:NSForegroundColorAttributeName value:seaGreen range:range];
-    
-//    for (NSString *word in _sentence.words) {
-//        if ([word isEqualToString:colorword]) {
-//            NSRange range = [_swipeArea.text rangeOfString:word];
-//            
-//            UIColor *seaGreen = [UIColor colorWithRed:106.0/255 green:163.0/255 blue:106.0/255 alpha:1];
-//            
-//            [string addAttribute:NSForegroundColorAttributeName value:seaGreen range:range];
-//            break;
-//        }
-//    }
     
     [_swipeArea setAttributedText:string];
 }

@@ -16,14 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQO-Oz-uSj">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="The evening air was pale and chilly and after every charge of the footballers, the greasy leather orb flew like a heavy bird. " translatesAutoresizingMaskIntoConstraints="NO" id="uQO-Oz-uSj">
                                 <rect key="frame" x="0.0" y="378" width="600" height="280"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="0HV-bq-0yJ"/>
                                     <constraint firstAttribute="height" constant="280" id="lvt-SG-rZJ"/>
                                 </constraints>
-                                <string key="text">The evening air was pale and chilly and after every charge and thud of the footballers the greasy leather orb flew like a heavy bird through the grey light. </string>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="38"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
