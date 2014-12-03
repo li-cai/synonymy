@@ -8,6 +8,10 @@
 
 #import "SynonymVC.h"
 
+NSString *THESAURUS_URL = @"http://words.bighugelabs.com/api/2/";
+NSString *THESAURUS_URL_SUFFIX = @"/json";
+NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
+
 @interface SynonymVC () {
     NSMutableArray *_data;
     NSURLSession *_session;
