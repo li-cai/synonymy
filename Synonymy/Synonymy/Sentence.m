@@ -22,6 +22,10 @@
     return self;
 }
 
+- (void) addSynonyms:(NSMutableArray *)synonyms ofWord:(NSString *)word {
+    
+}
+
 - (NSString *) removeNonLettersFrom:(NSString *)string {
     NSCharacterSet *lettersCharSet = [NSCharacterSet letterCharacterSet];
     NSCharacterSet *punctuationCharSet = [NSCharacterSet punctuationCharacterSet];

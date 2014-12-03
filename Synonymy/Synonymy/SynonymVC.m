@@ -8,9 +8,14 @@
 
 #import "SynonymVC.h"
 
-@interface SynonymVC ()
+@interface SynonymVC () {
+    NSMutableArray *_data;
+    NSURLSession *_session;
+}
+
 @property (nonatomic, retain) IBOutlet UITextView *swipeArea;
 @property (nonatomic, strong) Sentence *sentence;
+
 @end
 
 @implementation SynonymVC
@@ -34,10 +39,6 @@
     
     NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
     //NSLog(@"%@", tappedWord);
-    
-    //NSRange wordRange = [_swipeArea.text rangeOfString:tappedWord];
-    
-    //[self colorWord:wordRange];
 }
 
 - (NSString *) getWordAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
@@ -74,6 +75,65 @@
     [string addAttribute:NSForegroundColorAttributeName value:seaGreen range:range];
     
     [_swipeArea setAttributedText:string];
+}
+
+- (void) loadSynonymsOfWord:(NSString *)word {
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    
+    _session = [NSURLSession sessionWithConfiguration:config];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    NSMutableString *searchString = [NSMutableString string];
+    [searchString appendString: LAST_FM_URL];
+    [searchString appendString: LAST_FM_API_KEY];
+    [searchString appendString: @"&artist="];
+    
+    artist = [artist stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [searchString appendString:artist];
+    NSLog(@"%@", searchString);
+    
+    NSURL *url = [NSURL URLWithString: searchString];
+    
+    NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:url
+                                             completionHandler:^(NSData *data,
+                                                                 NSURLResponse *response,
+                                                                 NSError *error) {
+                                                 NSLog(@"data=%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                                                 
+                                                 if (!error) {
+                                                     NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)response;
+                                                     if (httpResp.statusCode == 200) {
+                                                         NSError *jsonError;
+                                                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                              options:NSJSONReadingMutableLeaves
+                                                                                                                error:&jsonError];
+                                                         
+                                                         if (!jsonError) {
+                                                             NSArray *allEvents = json[@"events"][@"event"];
+                                                             NSMutableArray *tempArray = [NSMutableArray array];
+                                                             
+                                                             for (NSDictionary *d in allEvents) {
+                                                                 Concert *concert = [[Concert alloc] initWithDictionary:d];
+                                                                 [tempArray addObject:concert];
+                                                             }
+                                                             
+                                                             if (tempArray.count == 0) {
+                                                                 Concert *concert = [[Concert alloc] initWithDictionary:@{@"title" : @"No results found"}];
+                                                                 [tempArray addObject:concert];
+                                                                 
+                                                             }
+                                                             
+                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                                                 _data = tempArray;
+                                                                 [self.tableView reloadData];
+                                                             });
+                                                         }
+                                                     }
+                                                 }
+                                             }];
+    [dataTask resume];
 }
 
 - (void)didReceiveMemoryWarning {
