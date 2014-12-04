@@ -17,7 +17,7 @@
         _words = [_fullsentence componentsSeparatedByString:@" "];
         
         _synonyms = [NSMutableDictionary dictionary];
-        _syncount = [NSDictionary dictionary];
+        _syncount = [NSMutableDictionary dictionary];
     }
     
     return self;

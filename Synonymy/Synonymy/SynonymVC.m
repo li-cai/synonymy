@@ -14,6 +14,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 
 @interface SynonymVC () {
     NSURLSession *_session;
+    UIColor *_seaGreen;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *swipeArea;
@@ -27,6 +28,8 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    _seaGreen = [UIColor colorWithRed:106.0/255 green:163.0/255 blue:106.0/255 alpha:1];
+    
     _swipeArea.scrollEnabled = NO;
     [_swipeArea setText:_sentence.fullsentence];
     
@@ -44,42 +47,59 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 
 - (void) onSwipe:(UISwipeGestureRecognizer *)recognizer {
     CGPoint swipePt = [recognizer locationInView:_swipeArea];
-    NSString *swipedWord = [self getWordAtPosition:swipePt inTextView:_swipeArea];
+    
+    UITextRange *textRange = [self getWordRangeAtPosition:swipePt inTextView:_swipeArea];
+    NSString *swipedWord = [self getWordAtRange:textRange];
     //NSLog(@"%@", swipedWord);
+    NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
     
     if ([_sentence.synonyms valueForKey:swipedWord] == nil) {
-        [self loadSynonymsOfWord:swipedWord];
+        [self loadSynonymsOfWord:swipedWord inRange:textRange];
     }
 }
 
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-
     return YES;
 }
 
-- (void) onSingleTap:(UITapGestureRecognizer *)recognizer {
-    CGPoint tapPt = [recognizer locationInView:_swipeArea];
-    
-    NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
-    
-    [self loadSynonymsOfWord:tappedWord];
-}
+//- (void) onSingleTap:(UITapGestureRecognizer *)recognizer {
+//    CGPoint tapPt = [recognizer locationInView:_swipeArea];
+//    
+//    NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
+//    
+//    [self loadSynonymsOfWord:tappedWord];
+//}
 
-- (NSString *) getWordAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
+- (UITextRange *) getWordRangeAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
     // get location
     UITextPosition *tapPos = [textView closestPositionToPoint:position];
     
     // get word at position
     UITextRange *textRange = [textView.tokenizer rangeEnclosingPosition:tapPos
-                                                    withGranularity:UITextGranularityWord
-                                                        inDirection:UITextLayoutDirectionRight];
-    
-    NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
-    [self colorWord:range];
-    
-    return [textView textInRange:textRange];
+                                                        withGranularity:UITextGranularityWord
+                                                            inDirection:UITextLayoutDirectionRight];
+    return textRange;
 }
 
+- (NSString *) getWordAtRange:(UITextRange *)textRange {
+    return [_swipeArea textInRange:textRange];
+}
+
+- (void) swapSynonym:(UITextRange *)textRange {
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
+    NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
+    
+    [string addAttribute:NSForegroundColorAttributeName value:_seaGreen range:range];
+    
+    NSNumber *num = [_sentence.syncount objectForKey:textRange];
+    NSLog(@"%@", num);
+    
+    //[string replaceCharactersInRange:range withString:_sentence.synonyms[textRange][count]];
+    
+    [_swipeArea setAttributedText:string];
+}
+
+// helper method for converting UITextRange to NSRange
 - (NSRange) rangeInTextView:(UITextView *)textView textRange:(UITextRange *)txtRange {
     UITextPosition *beginning = textView.beginningOfDocument;
     
@@ -95,13 +115,12 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 - (void) colorWord:(NSRange)range {
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
     
-    UIColor *seaGreen = [UIColor colorWithRed:106.0/255 green:163.0/255 blue:106.0/255 alpha:1];
-    [string addAttribute:NSForegroundColorAttributeName value:seaGreen range:range];
+    [string addAttribute:NSForegroundColorAttributeName value:_seaGreen range:range];
     
     [_swipeArea setAttributedText:string];
 }
 
-- (void) loadSynonymsOfWord:(NSString *)word {
+- (void) loadSynonymsOfWord:(NSString *)word inRange:(UITextRange *)textRange {
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     
     _session = [NSURLSession sessionWithConfiguration:config];
@@ -142,9 +161,12 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                                  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                                                  
-                                                                 [_sentence addSynonyms:temp ofWord:word];
+                                                                 [_sentence.synonyms setObject:temp forKey:(id <NSCopying>)textRange];
+                                                                 [_sentence.syncount setObject:[NSNumber numberWithInt:1] forKey:(id <NSCopying>)textRange];
                                                                  
-                                                                 NSLog(@"%@", _sentence.synonyms[@"pale"]);
+                                                                 //NSLog(@"%@", _sentence.synonyms);
+                                                                 
+                                                                 [self swapSynonym:textRange];
                                                              });
                                                          }
                                                      }
