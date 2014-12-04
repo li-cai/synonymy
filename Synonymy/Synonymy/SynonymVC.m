@@ -33,16 +33,14 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     _swipeArea.scrollEnabled = NO;
     [_swipeArea setText:_sentence.fullsentence];
     
-    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
-    swipe.direction = UISwipeGestureRecognizerDirectionDown;
-    swipe.delegate = self;
+    UISwipeGestureRecognizer *downswipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+    downswipe.direction = UISwipeGestureRecognizerDirectionDown;
+    downswipe.delegate = self;
+    [_swipeArea addGestureRecognizer:downswipe];
     
-    [_swipeArea addGestureRecognizer:swipe];
-    
-    //UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
-    
-    //[singleTap setNumberOfTapsRequired:1];
-    //[_swipeArea addGestureRecognizer:singleTap];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [_swipeArea addGestureRecognizer:singleTap];
 }
 
 - (void) onSwipe:(UISwipeGestureRecognizer *)recognizer {
@@ -98,27 +96,29 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     
     NSNumber *num = [_sentence.syncount valueForKey:word];
     int count = [num intValue];
-    NSLog(@"%d", count);
+    //NSLog(@"%d", count);
     
     NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
     NSString *syn = synonyms[count];
     //NSLog(@"%@", syn);
     
-    [_sentence.origin setValue:word forKey:syn];
-    NSLog(@"%@", _sentence.origin);
-    
-    [string replaceCharactersInRange:range withString:syn];
-    [_swipeArea setAttributedText:string];
-    
-    count++;
-    if (count > synonyms.count - 1) {
-        count = 0;
+    if (syn) {
+        [_sentence.origin setValue:word forKey:syn];
+        //NSLog(@"%@", _sentence.origin);
+        
+        [string replaceCharactersInRange:range withString:syn];
+        [_swipeArea setAttributedText:string];
+        
+        count++;
+        if (count > synonyms.count - 1) {
+            count = 0;
+        }
+        
+        NSNumber *newNum = [NSNumber numberWithInt:count];
+        [_sentence.syncount setValue:newNum forKey:word];
+        
+        //NSLog(@"%@", _sentence.syncount);
     }
-    
-    NSNumber *newNum = [NSNumber numberWithInt:count];
-    [_sentence.syncount setValue:newNum forKey:word];
-    
-    NSLog(@"%@", _sentence.syncount);
 }
 
 // helper method for converting UITextRange to NSRange
@@ -186,12 +186,22 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                  [_sentence.synonyms setValue:temp forKey:word];
                                                                  [_sentence.syncount setValue:[NSNumber numberWithInt:1] forKey:word];
                                                                  
-                                                                 //NSLog(@"%@", _sentence.synonyms);
+                                                                 if (temp.count == 1) {
+                                                                     [_sentence.origin setValue:temp[0] forKey:temp[0]];
+                                                                 }
+                                                                 
+                                                                 //NSLog(@"%@", _sentence.origin);
                                                                  
                                                                  [self swapSynonymWithWord:word textRange:textRange];
                                                              });
                                                          }
                                                      }
+                                                     else {
+                                                         [_sentence.origin setValue:word forKey:word];
+                                                     }
+                                                 }
+                                                 else {
+                                                     [_sentence.origin setValue:word forKey:word];
                                                  }
                                              }];
     [dataTask resume];

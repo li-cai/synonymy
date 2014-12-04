@@ -21,13 +21,14 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view, typically from a nib.
-    
-//    [_enterArrow addTarget:self action:@selector(onArrowTap) forControlEvents:UIControlEventTouchUpInside];
+
+    _textView.delegate = self;
     [_textView becomeFirstResponder];
+    
 }
 
-- (void) onArrowTap {
-//    NSLog(@"merp tapped!");
+- (void) textViewDidBeginEditing:(UITextView *)textView {
+    //textView.text = @"";
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
