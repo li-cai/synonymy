@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Sentence.h"
 
-@interface SynonymVC : UIViewController
+@interface SynonymVC : UIViewController<UIGestureRecognizerDelegate>
 
 - (void) setSentence:(Sentence *)sentence;
 

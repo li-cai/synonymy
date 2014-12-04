@@ -27,21 +27,40 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-    
+    _swipeArea.scrollEnabled = NO;
     [_swipeArea setText:_sentence.fullsentence];
     
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+    swipe.direction = UISwipeGestureRecognizerDirectionDown;
+    swipe.delegate = self;
     
-    [singleTap setNumberOfTapsRequired:1];
-    [_swipeArea addGestureRecognizer:singleTap];
+    [_swipeArea addGestureRecognizer:swipe];
+    
+    //UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
+    
+    //[singleTap setNumberOfTapsRequired:1];
+    //[_swipeArea addGestureRecognizer:singleTap];
+}
+
+- (void) onSwipe:(UISwipeGestureRecognizer *)recognizer {
+    CGPoint swipePt = [recognizer locationInView:_swipeArea];
+    NSString *swipedWord = [self getWordAtPosition:swipePt inTextView:_swipeArea];
+    //NSLog(@"%@", swipedWord);
+    
+    if ([_sentence.synonyms valueForKey:swipedWord] == nil) {
+        [self loadSynonymsOfWord:swipedWord];
+    }
+}
+
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+
+    return YES;
 }
 
 - (void) onSingleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint tapPt = [recognizer locationInView:_swipeArea];
-//    NSLog(@"%.2f %.2f", tapPt.x, tapPt.y);
     
     NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
-    //NSLog(@"%@", tappedWord);
     
     [self loadSynonymsOfWord:tappedWord];
 }
@@ -114,6 +133,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                                                                 error:&jsonError];
                                                          if (!jsonError) {
                                                              NSMutableArray *temp = [NSMutableArray array];
+                                                             [temp addObject:word];
                                                              for (id key in json) {
                                                                  [temp addObjectsFromArray:json[key][@"syn"]];
                                                                  [temp addObjectsFromArray:json[key][@"sim"]];
@@ -124,7 +144,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                  
                                                                  [_sentence addSynonyms:temp ofWord:word];
                                                                  
-                                                                 NSLog(@"%@", _sentence.synonyms);
+                                                                 NSLog(@"%@", _sentence.synonyms[@"pale"]);
                                                              });
                                                          }
                                                      }

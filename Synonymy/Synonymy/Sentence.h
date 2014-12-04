@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *fullsentence;
 @property (nonatomic, strong) NSArray *words;
 @property (nonatomic, strong) NSMutableDictionary *synonyms;
+@property (nonatomic, strong) NSDictionary *syncount;
 
 - (instancetype) initWithSentence:(NSString *)sentence;
 
