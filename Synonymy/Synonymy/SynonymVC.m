@@ -13,7 +13,6 @@ NSString *THESAURUS_URL_SUFFIX = @"/json";
 NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 
 @interface SynonymVC () {
-    NSMutableArray *_data;
     NSURLSession *_session;
 }
 
@@ -43,6 +42,8 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     
     NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
     //NSLog(@"%@", tappedWord);
+    
+    [self loadSynonymsOfWord:tappedWord];
 }
 
 - (NSString *) getWordAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
@@ -89,13 +90,12 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     NSMutableString *searchString = [NSMutableString string];
-    [searchString appendString: LAST_FM_URL];
-    [searchString appendString: LAST_FM_API_KEY];
-    [searchString appendString: @"&artist="];
+    [searchString appendString: THESAURUS_URL];
+    [searchString appendString: THESAURUS_API_KEY];
+    [searchString appendString: word];
+    [searchString appendString: THESAURUS_URL_SUFFIX];
     
-    artist = [artist stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [searchString appendString:artist];
-    NSLog(@"%@", searchString);
+    //NSLog(@"%@", searchString);
     
     NSURL *url = [NSURL URLWithString: searchString];
     
@@ -103,7 +103,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                              completionHandler:^(NSData *data,
                                                                  NSURLResponse *response,
                                                                  NSError *error) {
-                                                 NSLog(@"data=%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                                                 //NSLog(@"data=%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                                                  
                                                  if (!error) {
                                                      NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)response;
@@ -112,26 +112,19 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                          NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                                                                               options:NSJSONReadingMutableLeaves
                                                                                                                 error:&jsonError];
-                                                         
                                                          if (!jsonError) {
-                                                             NSArray *allEvents = json[@"events"][@"event"];
-                                                             NSMutableArray *tempArray = [NSMutableArray array];
-                                                             
-                                                             for (NSDictionary *d in allEvents) {
-                                                                 Concert *concert = [[Concert alloc] initWithDictionary:d];
-                                                                 [tempArray addObject:concert];
-                                                             }
-                                                             
-                                                             if (tempArray.count == 0) {
-                                                                 Concert *concert = [[Concert alloc] initWithDictionary:@{@"title" : @"No results found"}];
-                                                                 [tempArray addObject:concert];
-                                                                 
+                                                             NSMutableArray *temp = [NSMutableArray array];
+                                                             for (id key in json) {
+                                                                 [temp addObjectsFromArray:json[key][@"syn"]];
+                                                                 [temp addObjectsFromArray:json[key][@"sim"]];
                                                              }
                                                              
                                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                                  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                                                                 _data = tempArray;
-                                                                 [self.tableView reloadData];
+                                                                 
+                                                                 [_sentence addSynonyms:temp ofWord:word];
+                                                                 
+                                                                 NSLog(@"%@", _sentence.synonyms);
                                                              });
                                                          }
                                                      }

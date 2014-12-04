@@ -23,7 +23,7 @@
 }
 
 - (void) addSynonyms:(NSMutableArray *)synonyms ofWord:(NSString *)word {
-    
+    [_synonyms setObject:synonyms forKey:word];
 }
 
 - (NSString *) removeNonLettersFrom:(NSString *)string {

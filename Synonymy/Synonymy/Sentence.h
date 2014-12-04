@@ -16,4 +16,6 @@
 
 - (instancetype) initWithSentence:(NSString *)sentence;
 
+- (void) addSynonyms:(NSMutableArray *)synonyms ofWord:(NSString *)word;
+
 @end
