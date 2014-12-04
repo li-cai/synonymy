@@ -23,6 +23,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
 //    [_enterArrow addTarget:self action:@selector(onArrowTap) forControlEvents:UIControlEventTouchUpInside];
+    [_textView becomeFirstResponder];
 }
 
 - (void) onArrowTap {
