@@ -15,6 +15,7 @@
 		3F07458A1A2D132B0086613B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F0745881A2D132B0086613B /* LaunchScreen.xib */; };
 		3F0745961A2D132C0086613B /* SynonymyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0745951A2D132C0086613B /* SynonymyTests.m */; };
 		3F1B2F3F1A2D3F2800FFFE03 /* Sentence.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B2F3E1A2D3F2800FFFE03 /* Sentence.m */; };
+		3F2A2E6F1A3B921D00F2D5A0 /* TabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2A2E6E1A3B921D00F2D5A0 /* TabBarVC.m */; };
 		3F6E005C1A2D7853002572D8 /* SynonymVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E005B1A2D7853002572D8 /* SynonymVC.m */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,8 @@
 		3F0745951A2D132C0086613B /* SynonymyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SynonymyTests.m; sourceTree = "<group>"; };
 		3F1B2F3D1A2D3F2800FFFE03 /* Sentence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sentence.h; sourceTree = "<group>"; };
 		3F1B2F3E1A2D3F2800FFFE03 /* Sentence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sentence.m; sourceTree = "<group>"; };
+		3F2A2E6D1A3B921D00F2D5A0 /* TabBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarVC.h; sourceTree = "<group>"; };
+		3F2A2E6E1A3B921D00F2D5A0 /* TabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarVC.m; sourceTree = "<group>"; };
 		3F6E005A1A2D7853002572D8 /* SynonymVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynonymVC.h; sourceTree = "<group>"; };
 		3F6E005B1A2D7853002572D8 /* SynonymVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynonymVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -141,6 +144,8 @@
 				3F0745811A2D132B0086613B /* ViewController.m */,
 				3F6E005A1A2D7853002572D8 /* SynonymVC.h */,
 				3F6E005B1A2D7853002572D8 /* SynonymVC.m */,
+				3F2A2E6D1A3B921D00F2D5A0 /* TabBarVC.h */,
+				3F2A2E6E1A3B921D00F2D5A0 /* TabBarVC.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 				3F6E005C1A2D7853002572D8 /* SynonymVC.m in Sources */,
 				3F07457F1A2D132B0086613B /* AppDelegate.m in Sources */,
 				3F1B2F3F1A2D3F2800FFFE03 /* Sentence.m in Sources */,
+				3F2A2E6F1A3B921D00F2D5A0 /* TabBarVC.m in Sources */,
 				3F07457C1A2D132B0086613B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
