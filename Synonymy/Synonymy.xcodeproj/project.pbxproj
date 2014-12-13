@@ -16,6 +16,9 @@
 		3F0745961A2D132C0086613B /* SynonymyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0745951A2D132C0086613B /* SynonymyTests.m */; };
 		3F1B2F3F1A2D3F2800FFFE03 /* Sentence.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B2F3E1A2D3F2800FFFE03 /* Sentence.m */; };
 		3F2A2E6F1A3B921D00F2D5A0 /* TabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2A2E6E1A3B921D00F2D5A0 /* TabBarVC.m */; };
+		3F2A2E721A3BB08C00F2D5A0 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2A2E711A3BB08C00F2D5A0 /* History.m */; };
+		3F2A2E751A3BB10000F2D5A0 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2A2E741A3BB10000F2D5A0 /* DataStore.m */; };
+		3F2A2E781A3BB2ED00F2D5A0 /* HistoryTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2A2E771A3BB2ED00F2D5A0 /* HistoryTableVC.m */; };
 		3F6E005C1A2D7853002572D8 /* SynonymVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E005B1A2D7853002572D8 /* SynonymVC.m */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +50,12 @@
 		3F1B2F3E1A2D3F2800FFFE03 /* Sentence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sentence.m; sourceTree = "<group>"; };
 		3F2A2E6D1A3B921D00F2D5A0 /* TabBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarVC.h; sourceTree = "<group>"; };
 		3F2A2E6E1A3B921D00F2D5A0 /* TabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarVC.m; sourceTree = "<group>"; };
+		3F2A2E701A3BB08C00F2D5A0 /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
+		3F2A2E711A3BB08C00F2D5A0 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
+		3F2A2E731A3BB10000F2D5A0 /* DataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStore.h; sourceTree = "<group>"; };
+		3F2A2E741A3BB10000F2D5A0 /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
+		3F2A2E761A3BB2ED00F2D5A0 /* HistoryTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableVC.h; sourceTree = "<group>"; };
+		3F2A2E771A3BB2ED00F2D5A0 /* HistoryTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableVC.m; sourceTree = "<group>"; };
 		3F6E005A1A2D7853002572D8 /* SynonymVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynonymVC.h; sourceTree = "<group>"; };
 		3F6E005B1A2D7853002572D8 /* SynonymVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynonymVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,8 +140,12 @@
 		3F1B2F3C1A2D3F0300FFFE03 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3F2A2E731A3BB10000F2D5A0 /* DataStore.h */,
+				3F2A2E741A3BB10000F2D5A0 /* DataStore.m */,
 				3F1B2F3D1A2D3F2800FFFE03 /* Sentence.h */,
 				3F1B2F3E1A2D3F2800FFFE03 /* Sentence.m */,
+				3F2A2E701A3BB08C00F2D5A0 /* History.h */,
+				3F2A2E711A3BB08C00F2D5A0 /* History.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -146,6 +159,8 @@
 				3F6E005B1A2D7853002572D8 /* SynonymVC.m */,
 				3F2A2E6D1A3B921D00F2D5A0 /* TabBarVC.h */,
 				3F2A2E6E1A3B921D00F2D5A0 /* TabBarVC.m */,
+				3F2A2E761A3BB2ED00F2D5A0 /* HistoryTableVC.h */,
+				3F2A2E771A3BB2ED00F2D5A0 /* HistoryTableVC.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -255,6 +270,9 @@
 				3F07457F1A2D132B0086613B /* AppDelegate.m in Sources */,
 				3F1B2F3F1A2D3F2800FFFE03 /* Sentence.m in Sources */,
 				3F2A2E6F1A3B921D00F2D5A0 /* TabBarVC.m in Sources */,
+				3F2A2E781A3BB2ED00F2D5A0 /* HistoryTableVC.m in Sources */,
+				3F2A2E751A3BB10000F2D5A0 /* DataStore.m in Sources */,
+				3F2A2E721A3BB08C00F2D5A0 /* History.m in Sources */,
 				3F07457C1A2D132B0086613B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

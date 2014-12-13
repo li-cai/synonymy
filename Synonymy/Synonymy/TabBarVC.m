@@ -22,7 +22,6 @@
     CGFloat tabBarHeight = 60.0;
     CGRect frame = self.view.frame;
     self.tabBar.frame = CGRectMake(0, frame.size.height - tabBarHeight, frame.size.width, tabBarHeight);
-    self.tabBar.backgroundColor = [UIColor orangeColor];
 }
 
 - (void)didReceiveMemoryWarning {

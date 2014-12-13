@@ -9,10 +9,13 @@
 #import "ViewController.h"
 #import "Sentence.h"
 #import "SynonymVC.h"
+#import "DataStore.h"
+#import "History.h"
 
 @interface ViewController()
 @property (nonatomic) IBOutlet UITextView *textView;
 @property (nonatomic) IBOutlet UIButton *enterArrow;
+@property (nonatomic, strong) NSMutableArray *history;
 @end
 
 @implementation ViewController
@@ -25,6 +28,7 @@
     _textView.delegate = self;
     [_textView becomeFirstResponder];
     
+    _history = [DataStore sharedStore].history;
 }
 
 - (void) textViewDidBeginEditing:(UITextView *)textView {
@@ -34,6 +38,8 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"synonymize"]) {
         Sentence *sentence = [[Sentence alloc] initWithSentence:_textView.text];
+        History *hist = [[History alloc] initWithSentence:sentence.fullsentence];
+        [_history addObject:hist];
         
         SynonymVC *controller = (SynonymVC *) segue.destinationViewController;
         [controller setSentence:sentence];
