@@ -230,4 +230,5 @@
     <resources>
         <image name="AddIcon" width="25" height="25"/>
     </resources>
+    <color key="tintColor" red="0.10196078431372549" green="0.73725490196078436" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -9,6 +9,7 @@
 #import "HistoryTableVC.h"
 #import "DataStore.h"
 #import "History.h"
+#import "UIColor+Extensions.h"
 
 @interface HistoryTableVC ()
 @property (nonatomic, strong) NSMutableArray *history;
@@ -60,7 +61,7 @@
     cell.textLabel.font  = myFont;
     
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor redColor];
+    bgColorView.backgroundColor = [UIColor turquoiseColor];
     [cell setSelectedBackgroundView:bgColorView];
     
     return cell;

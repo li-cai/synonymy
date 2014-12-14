@@ -12,5 +12,8 @@
 
 + (UIColor *) turquoiseColor;
 + (UIColor *) sunflowerColor;
++ (UIColor *) marsalaColor;
++ (UIColor *) alizarinColor;
++ (UIColor *) grapefruitColor;
 
 @end
