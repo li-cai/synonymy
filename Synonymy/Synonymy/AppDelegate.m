@@ -7,12 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "UIColor+Extensions.h"
 
-@interface AppDelegate () {
-    UIColor *_teal;
-    UIColor *_sunflower;
-}
-
+@interface AppDelegate ()
 @end
 
 @implementation AppDelegate
@@ -21,15 +18,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    _teal = [UIColor colorWithRed:26.0/255 green:188.0/255 blue:156.0/255 alpha:1.0];
-    _sunflower = [UIColor colorWithRed:241.0/255 green:196.0/255 blue:15.0/255 alpha:1.0];
     
-    [[UITabBar appearance] setTintColor:_teal];
+    [[UITabBar appearance] setTintColor:[UIColor turquoiseColor]];
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
     [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
     
-    [[UINavigationBar appearance] setTintColor:_teal];
-    [[UINavigationBar appearance] setBarTintColor:_sunflower];
+    [[UINavigationBar appearance] setTintColor:[UIColor turquoiseColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor sunflowerColor]];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[UINavigationBar appearance] setTranslucent:NO];
