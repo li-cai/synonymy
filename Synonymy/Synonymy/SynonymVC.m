@@ -7,6 +7,7 @@
 //
 
 #import "SynonymVC.h"
+#import "SynonymPickerVC.h"
 #import "UIColor+Extensions.h"
 
 NSString *THESAURUS_URL = @"http://words.bighugelabs.com/api/2/";
@@ -15,10 +16,12 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 
 @interface SynonymVC () {
     NSURLSession *_session;
+    BOOL _isSwipe;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *swipeArea;
 @property (nonatomic, strong) Sentence *sentence;
+@property (nonatomic, strong) UIPopoverController *popover;
 
 @end
 
@@ -40,6 +43,9 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
     [singleTap setNumberOfTapsRequired:1];
     [_swipeArea addGestureRecognizer:singleTap];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPress:)];
+    [_swipeArea addGestureRecognizer:longPress];
 }
 
 // set current sentence displayed
@@ -47,7 +53,47 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     _sentence = sentence;
 }
 
+- (void) onLongPress:(UILongPressGestureRecognizer *)recognizer {
+    
+    _isSwipe = NO;
+    
+    CGPoint pressPt = [recognizer locationInView:_swipeArea];
+    
+    UITextRange *textRange = [self getWordRangeAtPosition:pressPt inTextView:_swipeArea];
+    NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
+    NSString *pressedWord = [self getWordAtRange:textRange];
+    
+    if ([_sentence.origin valueForKey:pressedWord] == nil) {
+        [self loadSynonymsOfWord:pressedWord inRange:range];
+    }
+    else {
+        NSString *originalRange = [_sentence.origin valueForKey:pressedWord];
+        [self showSynonymPicker:originalRange];
+    }
+}
+
+- (void) showSynonymPicker:(NSString *)originalRange {
+    
+    NSString *word = [_sentence.rangeToWord valueForKey:originalRange];
+    NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
+    
+    if (synonyms != nil) {
+        SynonymPickerVC *pickerVC = [self.storyboard
+                                      instantiateViewControllerWithIdentifier:@"SynonymPicker"];
+        [pickerVC setSynonyms:synonyms];
+        
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:pickerVC];
+        self.popover.delegate = self;
+        
+        [self.popover presentPopoverFromRect:_swipeArea.frame inView:_swipeArea
+                    permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+}
+
 - (void) onSwipe:(UISwipeGestureRecognizer *)recognizer {
+    
+    _isSwipe = YES;
+    
     CGPoint swipePt = [recognizer locationInView:_swipeArea];
     
     UITextRange *textRange = [self getWordRangeAtPosition:swipePt inTextView:_swipeArea];
@@ -192,17 +238,23 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                              }
                                                              
                                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
                                                                  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                                                  
                                                                  [_sentence.synonyms setValue:temp forKey:word];
-                                                                 [_sentence.syncount setValue:[NSNumber numberWithInt:1] forKey:rangeSTR];
-                                                                 
                                                                  
                                                                  if (temp.count == 1) {
                                                                      [_sentence.origin setValue:rangeSTR forKey:word];
                                                                  }
                                                                  
-                                                                 [self swapWithSynonym:rangeSTR textRange:range];
+                                                                 if (_isSwipe) {
+                                                                     [_sentence.syncount setValue:[NSNumber numberWithInt:1] forKey:rangeSTR];
+                                                                     
+                                                                     [self swapWithSynonym:rangeSTR textRange:range];
+                                                                 }
+                                                                 else {
+                                                                     [self showSynonymPicker:rangeSTR];
+                                                                 }
                                                              });
                                                          }
                                                      }

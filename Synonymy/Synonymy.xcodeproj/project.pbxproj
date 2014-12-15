@@ -21,6 +21,7 @@
 		3F2A2E781A3BB2ED00F2D5A0 /* HistoryTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2A2E771A3BB2ED00F2D5A0 /* HistoryTableVC.m */; };
 		3F3AEA781A3E31FE007E0D20 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F3AEA771A3E31FE007E0D20 /* UIColor+Extensions.m */; };
 		3F6E005C1A2D7853002572D8 /* SynonymVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E005B1A2D7853002572D8 /* SynonymVC.m */; };
+		3FD2F9451A3E8701002DAF0F /* SynonymPickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD2F9441A3E8701002DAF0F /* SynonymPickerVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		3F3AEA771A3E31FE007E0D20 /* UIColor+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extensions.m"; sourceTree = "<group>"; };
 		3F6E005A1A2D7853002572D8 /* SynonymVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynonymVC.h; sourceTree = "<group>"; };
 		3F6E005B1A2D7853002572D8 /* SynonymVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynonymVC.m; sourceTree = "<group>"; };
+		3FD2F9431A3E8701002DAF0F /* SynonymPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynonymPickerVC.h; sourceTree = "<group>"; };
+		3FD2F9441A3E8701002DAF0F /* SynonymPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynonymPickerVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +169,8 @@
 				3F2A2E6E1A3B921D00F2D5A0 /* TabBarVC.m */,
 				3F2A2E761A3BB2ED00F2D5A0 /* HistoryTableVC.h */,
 				3F2A2E771A3BB2ED00F2D5A0 /* HistoryTableVC.m */,
+				3FD2F9431A3E8701002DAF0F /* SynonymPickerVC.h */,
+				3FD2F9441A3E8701002DAF0F /* SynonymPickerVC.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 				3F2A2E721A3BB08C00F2D5A0 /* History.m in Sources */,
 				3F07457C1A2D132B0086613B /* main.m in Sources */,
 				3F3AEA781A3E31FE007E0D20 /* UIColor+Extensions.m in Sources */,
+				3FD2F9451A3E8701002DAF0F /* SynonymPickerVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
