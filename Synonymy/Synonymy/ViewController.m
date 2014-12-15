@@ -26,7 +26,8 @@
     // Do any additional setup after loading the view, typically from a nib.
 
     _textView.delegate = self;
-    [_textView becomeFirstResponder];
+    //[_textView becomeFirstResponder];
+    _textView.clearsOnInsertion = YES;
     
     _history = [DataStore sharedStore].history;
 }
@@ -36,7 +37,8 @@
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"synonymize"]) {
+    if ([[segue identifier] isEqualToString:@"synonymize"] && ![_textView.text isEqual: @""]
+        && _textView.text != nil) {
         Sentence *sentence = [[Sentence alloc] initWithSentence:_textView.text];
         History *hist = [[History alloc] initWithSentence:sentence.fullsentence];
         [_history addObject:hist];

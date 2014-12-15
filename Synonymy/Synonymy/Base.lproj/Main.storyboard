@@ -101,6 +101,24 @@
             </objects>
             <point key="canvasLocation" x="-114" y="1690"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="xl7-wA-rpc">
+            <objects>
+                <viewController id="K4d-Uq-MkJ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JSr-m9-b2P"/>
+                        <viewControllerLayoutGuide type="bottom" id="04Z-4D-EmT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6SB-D4-0cN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1WQ-mj-oj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="554" y="1706"/>
+        </scene>
         <!--HistoryTableVC-->
         <scene sceneID="ZtO-7d-7T7">
             <objects>
@@ -152,7 +170,7 @@
         <!--Synonym VC-->
         <scene sceneID="wWk-BU-WYs">
             <objects>
-                <viewController id="kSs-ry-BBa" userLabel="Synonym VC" customClass="SynonymVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Synonymize" id="kSs-ry-BBa" userLabel="Synonym VC" customClass="SynonymVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1R9-Vs-x6Z"/>
                         <viewControllerLayoutGuide type="bottom" id="e5F-65-4bb"/>

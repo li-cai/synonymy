@@ -10,6 +10,7 @@
 #import "DataStore.h"
 #import "History.h"
 #import "UIColor+Extensions.h"
+#import "SynonymVC.h"
 
 @interface HistoryTableVC ()
 @property (nonatomic, strong) NSMutableArray *history;
@@ -65,6 +66,16 @@
     [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    History *hist = self.history[indexPath.row];
+    Sentence *sentence = [[Sentence alloc] initWithSentence:hist.sentence];
+    
+    SynonymVC *synVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Synonymize"];
+    [synVC setSentence:sentence];
+    
+    [self.navigationController pushViewController:synVC animated:YES];
 }
 
 

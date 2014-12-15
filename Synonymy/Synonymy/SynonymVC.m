@@ -97,24 +97,19 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 }
 
 - (void) swapWithSynonym:(NSString *)originalRange textRange:(NSRange)range {
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
-    //NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
     
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor grapefruitColor] range:range];
     
-    //NSString *rangeSTR = NSStringFromRange(range);
     NSNumber *num = [_sentence.syncount valueForKey:originalRange];
     int count = [num intValue];
-    //NSLog(@"%d", count);
     
     NSString *word = [_sentence.rangeToWord valueForKey:originalRange];
     NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
     NSString *syn = synonyms[count];
-    //NSLog(@"%@", syn);
     
     if (syn) {
         [_sentence.origin setValue:originalRange forKey:syn];
-        //NSLog(@"%@", _sentence.origin);
         
         if (syn == word) {
             [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
@@ -130,8 +125,6 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         
         NSNumber *newNum = [NSNumber numberWithInt:count];
         [_sentence.syncount setValue:newNum forKey:originalRange];
-        
-        //NSLog(@"%@", _sentence.syncount);
     }
 }
 
