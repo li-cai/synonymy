@@ -101,23 +101,33 @@
             </objects>
             <point key="canvasLocation" x="-114" y="1690"/>
         </scene>
-        <!--View Controller-->
+        <!--Synonym PickerVC-->
         <scene sceneID="xl7-wA-rpc">
             <objects>
-                <viewController id="K4d-Uq-MkJ" sceneMemberID="viewController">
+                <viewController id="K4d-Uq-MkJ" customClass="SynonymPickerVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JSr-m9-b2P"/>
                         <viewControllerLayoutGuide type="bottom" id="04Z-4D-EmT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6SB-D4-0cN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="380"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2XS-Md-sr6">
+                                <rect key="frame" x="-10" y="72" width="320" height="216"/>
+                            </pickerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="380"/>
+                    <connections>
+                        <outlet property="pickerView" destination="2XS-Md-sr6" id="p6c-Fl-4nk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1WQ-mj-oj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="554" y="1706"/>
+            <point key="canvasLocation" x="404" y="1670"/>
         </scene>
         <!--HistoryTableVC-->
         <scene sceneID="ZtO-7d-7T7">
