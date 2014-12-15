@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSMutableDictionary *synonyms;
 @property (nonatomic, strong) NSMutableDictionary *syncount;
 @property (nonatomic, strong) NSMutableDictionary *origin;
+@property (nonatomic, strong) NSMutableDictionary *rangeToWord;
 
 - (instancetype) initWithSentence:(NSString *)sentence;
 

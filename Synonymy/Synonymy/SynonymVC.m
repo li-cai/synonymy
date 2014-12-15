@@ -51,18 +51,17 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     CGPoint swipePt = [recognizer locationInView:_swipeArea];
     
     UITextRange *textRange = [self getWordRangeAtPosition:swipePt inTextView:_swipeArea];
+    NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
     NSString *swipedWord = [self getWordAtRange:textRange];
-    //NSLog(@"%@", swipedWord);
-    //NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
     
     if ([_sentence.origin valueForKey:swipedWord] == nil) {
         NSLog(@"hue");
-        [self loadSynonymsOfWord:swipedWord inRange:textRange];
+        [self loadSynonymsOfWord:swipedWord inRange:range];
     }
     else {
-        NSString *originalWord = [_sentence.origin valueForKey:swipedWord];
+        NSString *originalRange = [_sentence.origin valueForKey:swipedWord];
         
-        [self swapSynonymWithWord:originalWord textRange:textRange];
+        [self swapWithSynonym:(NSString *)originalRange textRange:range];
     }
 }
 
@@ -76,13 +75,14 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 //    NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
 //    
 //    [self loadSynonymsOfWord:tappedWord];
+
 //}
 
 
 // get range of the word at the given position in the given textview
 - (UITextRange *) getWordRangeAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
     // get location
-    UITextPosition *tapPos = [textView closestPositionToPoint:position];
+    UITextPosition *tapPos = [textView closestPositionToPoint:position];\
     
     // get word at position
     UITextRange *textRange = [textView.tokenizer rangeEnclosingPosition:tapPos
@@ -96,23 +96,29 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     return [_swipeArea textInRange:textRange];
 }
 
-- (void) swapSynonymWithWord:(NSString *)word textRange:(UITextRange *)textRange {
+- (void) swapWithSynonym:(NSString *)originalRange textRange:(NSRange)range {
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
-    NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
+    //NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
     
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor grapefruitColor] range:range];
     
-    NSNumber *num = [_sentence.syncount valueForKey:word];
+    //NSString *rangeSTR = NSStringFromRange(range);
+    NSNumber *num = [_sentence.syncount valueForKey:originalRange];
     int count = [num intValue];
     //NSLog(@"%d", count);
     
+    NSString *word = [_sentence.rangeToWord valueForKey:originalRange];
     NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
     NSString *syn = synonyms[count];
     //NSLog(@"%@", syn);
     
     if (syn) {
-        [_sentence.origin setValue:word forKey:syn];
+        [_sentence.origin setValue:originalRange forKey:syn];
         //NSLog(@"%@", _sentence.origin);
+        
+        if (syn == word) {
+            [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
+        }
         
         [string replaceCharactersInRange:range withString:syn];
         [_swipeArea setAttributedText:string];
@@ -123,7 +129,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         }
         
         NSNumber *newNum = [NSNumber numberWithInt:count];
-        [_sentence.syncount setValue:newNum forKey:word];
+        [_sentence.syncount setValue:newNum forKey:originalRange];
         
         //NSLog(@"%@", _sentence.syncount);
     }
@@ -152,7 +158,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 
 
 // loads synonyms of given word by querying API
-- (void) loadSynonymsOfWord:(NSString *)word inRange:(UITextRange *)textRange {
+- (void) loadSynonymsOfWord:(NSString *)word inRange:(NSRange)range {
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     
     _session = [NSURLSession sessionWithConfiguration:config];
@@ -176,6 +182,9 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                  if (!error) {
                                                      NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)response;
                                                      
+                                                     NSString *rangeSTR = NSStringFromRange(range);
+                                                     [_sentence.rangeToWord setValue:word forKey:rangeSTR];
+                                                     
                                                      if (httpResp.statusCode == 200) {
                                                          NSError *jsonError;
                                                          NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
@@ -193,20 +202,20 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                                                  
                                                                  [_sentence.synonyms setValue:temp forKey:word];
-                                                                 [_sentence.syncount setValue:[NSNumber numberWithInt:1] forKey:word];
+                                                                 [_sentence.syncount setValue:[NSNumber numberWithInt:1] forKey:rangeSTR];
+                                                                 
                                                                  
                                                                  if (temp.count == 1) {
-                                                                     [_sentence.origin setValue:temp[0] forKey:temp[0]];
+                                                                     [_sentence.origin setValue:rangeSTR forKey:word];
                                                                  }
                                                                  
-                                                                 //NSLog(@"%@", _sentence.origin);
-                                                                 
-                                                                 [self swapSynonymWithWord:word textRange:textRange];
+                                                                 [self swapWithSynonym:rangeSTR textRange:range];
                                                              });
                                                          }
                                                      }
                                                      else {
-                                                         [_sentence.origin setValue:word forKey:word];
+                                                         [_sentence.origin setValue:rangeSTR forKey:word];
+                                                         
                                                          [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                                      }
                                                  }

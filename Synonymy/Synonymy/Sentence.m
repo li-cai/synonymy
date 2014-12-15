@@ -19,6 +19,7 @@
         _synonyms = [NSMutableDictionary dictionary];
         _syncount = [NSMutableDictionary dictionary];
         _origin = [NSMutableDictionary dictionary];
+        _rangeToWord = [NSMutableDictionary dictionary];
     }
     
     return self;
