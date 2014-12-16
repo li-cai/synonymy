@@ -12,5 +12,6 @@
 @interface SynonymVC : UIViewController<UIGestureRecognizerDelegate, UIPopoverControllerDelegate, UIPickerViewDelegate>
 
 - (void) setSentence:(Sentence *)sentence;
+- (void) setAttrText:(NSAttributedString *)text;
 
 @end

@@ -20,6 +20,8 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     NSURLSession *_session;
     
     BOOL _isSwipe;
+    BOOL _attrTextSet;
+    BOOL _pickerDisplayed;
     
     //NSString *_originalrange;
     NSRange _range;
@@ -28,11 +30,13 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     
     NSMutableArray *_favorites;
     Favorite *_favorite;
+    
+    NSAttributedString *_attrText;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *swipeArea;
-@property (nonatomic, strong) Sentence *sentence;
 @property (nonatomic, strong) UIPopoverController *popover;
+@property (nonatomic, strong) Sentence *sentence;
 
 @property (nonatomic) UIBarButtonItem *fav;
 @property (nonatomic) UIBarButtonItem *unfav;
@@ -45,9 +49,15 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    _pickerDisplayed = NO;
     
     _swipeArea.scrollEnabled = NO;
+    
     [_swipeArea setText:_sentence.fullsentence];
+    
+    if (_attrTextSet) {
+        [_swipeArea setAttributedText:_attrText];
+    }
     
     UISwipeGestureRecognizer *downswipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
     downswipe.direction = UISwipeGestureRecognizerDirectionDown;
@@ -90,11 +100,21 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     _favorites = [DataStore sharedStore].favorites;
 }
 
+- (void) viewDidDisappear:(BOOL)animated {
+    NSMutableArray *temp = [[NSMutableArray alloc]
+                            initWithArray:self.navigationController.viewControllers];
+    [temp removeLastObject];
+    
+    self.navigationController.viewControllers = temp;
+}
+
 - (void) favorite {
     _sentence.isFavorite = YES;
     _favorite = [[Favorite alloc] initWithSentence:_sentence attrText:_swipeArea.attributedText];
     
     [_favorites addObject:_favorite];
+    
+    NSLog(@"%@", _favorites);
     
     self.navigationItem.rightBarButtonItem = _unfav;
 }
@@ -132,9 +152,13 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 }
 
 - (void) onSelectionNotification:(NSNotification *)notification {
+    NSLog(@"NOOOOOOOO");
+    
     NSString *synonym = notification.userInfo[@"selected"];
     NSString *word = [_sentence.rangeToWord valueForKey:_sentence.originalrange];
     NSAttributedString *text = _swipeArea.attributedText;
+    
+    NSLog(@"%@", text.string);
     
     NSUInteger length = [text length];
     NSRange range = NSMakeRange(0, length);
@@ -149,6 +173,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
             
             if (range.location != NSNotFound) {
                 replace_range = NSMakeRange(range.location, [currentword length]);
+                range.location = NSNotFound;
                 break;
             }
         }
@@ -175,7 +200,8 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
     CGRect wordRect = [_swipeArea firstRectForRange:textRange];
     
-    if (synonyms != nil) {
+    if (synonyms != nil && !_pickerDisplayed) {
+        _pickerDisplayed = YES;
         
         SynonymPickerVC *pickerVC = [self.storyboard
                                       instantiateViewControllerWithIdentifier:@"SynonymPicker"];
@@ -187,11 +213,13 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         self.popover = [[UIPopoverController alloc] initWithContentViewController:pickerVC];
         self.popover.delegate = self;
         
-
-        
         [self.popover presentPopoverFromRect:wordRect inView:_swipeArea
                         permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    _pickerDisplayed = NO;
 }
 
 - (void) onSwipe:(UISwipeGestureRecognizer *)recognizer {
@@ -297,6 +325,11 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor alizarinColor] range:range];
     
     [_swipeArea setAttributedText:string];
+}
+
+- (void) setAttrText:(NSAttributedString *)text {
+    _attrText = text;
+    _attrTextSet = YES;
 }
 
 

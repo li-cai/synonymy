@@ -32,6 +32,26 @@ NSString *FILLER = @"No favorites have been added.";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+//    _favorites = [DataStore sharedStore].favorites;
+//    
+//    if (_favorites.count == 0) {
+//        NSMutableArray *temp = [NSMutableArray array];
+//        NSAttributedString *tempstr = [[NSAttributedString alloc]initWithString:FILLER];
+//        Sentence *tempsent = [[Sentence alloc] initWithSentence:FILLER];
+//        
+//        [temp addObject:[[Favorite alloc] initWithSentence:tempsent attrText:tempstr]];
+//
+//        _favorites = temp;
+//    }
+    
+    self.tableView.rowHeight = 110.0;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    NSLog(@"favVC %@", _favorites);
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    NSLog(@"appear %@", _favorites);
     _favorites = [DataStore sharedStore].favorites;
     
     if (_favorites.count == 0) {
@@ -40,14 +60,11 @@ NSString *FILLER = @"No favorites have been added.";
         Sentence *tempsent = [[Sentence alloc] initWithSentence:FILLER];
         
         [temp addObject:[[Favorite alloc] initWithSentence:tempsent attrText:tempstr]];
-
+        
         _favorites = temp;
     }
     
-    self.tableView.rowHeight = 110.0;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
-    NSLog(@"hello");
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,6 +113,7 @@ NSString *FILLER = @"No favorites have been added.";
         
         SynonymVC *synVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Synonymize"];
         [synVC setSentence:sent];
+        [synVC setAttrText:favorite.highlighted];
         
         [self.navigationController pushViewController:synVC animated:YES];
     }
