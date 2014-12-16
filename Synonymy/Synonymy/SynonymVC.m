@@ -311,6 +311,8 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                      _originalrange = rangeSTR;
                                                                      [self showSynonymPicker:rangeSTR textRange:textRange];
                                                                  }
+                                                                 
+                                                                 _currentword = word;
                                                              });
                                                          }
                                                      }

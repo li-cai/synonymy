@@ -113,7 +113,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="220" height="210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" horizontalHuggingPriority="220" verticalHuggingPriority="280" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2XS-Md-sr6">
+                            <pickerView contentMode="scaleToFill" horizontalHuggingPriority="220" verticalHuggingPriority="280" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2XS-Md-sr6">
                                 <rect key="frame" x="0.0" y="0.0" width="220" height="216"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="RKR-zo-n8s"/>
@@ -123,6 +123,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2XS-Md-sr6" firstAttribute="leading" secondItem="6SB-D4-0cN" secondAttribute="leading" id="581-QK-zja"/>
                             <constraint firstAttribute="bottom" secondItem="2XS-Md-sr6" secondAttribute="bottom" id="P2a-YA-YUZ"/>
                         </constraints>
                     </view>
@@ -151,6 +152,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>

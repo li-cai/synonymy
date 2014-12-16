@@ -12,6 +12,8 @@
 #import "UIColor+Extensions.h"
 #import "SynonymVC.h"
 
+NSString *PLACEHOLDER = @"No sentences have been added yet.";
+
 @interface HistoryTableVC ()
 @property (nonatomic, strong) NSMutableArray *history;
 @end
@@ -29,7 +31,15 @@
     
     _history = [DataStore sharedStore].history;
     
+    if (_history.count == 0) {
+        NSMutableArray *temp = [NSMutableArray array];
+        
+        [temp addObject:[[History alloc] initWithSentence:PLACEHOLDER]];
+        _history = temp;
+    }
+    
     self.tableView.rowHeight = 110.0;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,7 +72,7 @@
     cell.textLabel.font  = myFont;
     
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor turquoiseColor];
+    bgColorView.backgroundColor = [UIColor grapefruitColor];
     [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
@@ -70,12 +80,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     History *hist = self.history[indexPath.row];
-    Sentence *sentence = [[Sentence alloc] initWithSentence:hist.sentence];
     
-    SynonymVC *synVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Synonymize"];
-    [synVC setSentence:sentence];
+    if (![hist.sentence isEqual:PLACEHOLDER]) {
+        Sentence *sentence = [[Sentence alloc] initWithSentence:hist.sentence];
+        
+        SynonymVC *synVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Synonymize"];
+        [synVC setSentence:sentence];
+        
+        [self.navigationController pushViewController:synVC animated:YES];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    History *hist = self.history[indexPath.row];
+    if ([hist.sentence isEqual:PLACEHOLDER]) {
+        return NO;
+    }
     
-    [self.navigationController pushViewController:synVC animated:YES];
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_history removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData];
+    }
 }
 
 
