@@ -98,11 +98,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Synonymy/SynonymVC.m"
-            timestampString = "440393837.870095"
+            timestampString = "440397172.78949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "-onSwipe:"
             landmarkType = "5">
          </BreakpointContent>
@@ -114,11 +114,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Synonymy/SynonymVC.m"
-            timestampString = "440393837.870095"
+            timestampString = "440399268.901488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "-onSwipe:"
             landmarkType = "5">
          </BreakpointContent>
@@ -130,28 +130,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Synonymy/SynonymVC.m"
-            timestampString = "440393837.870095"
+            timestampString = "440399268.901488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "-swapWithSynonym:textRange:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Synonymy/SynonymVC.m"
-            timestampString = "440393837.870095"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "-swapWithSynonym:textRange:"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "-swapWord:withSyn:range:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

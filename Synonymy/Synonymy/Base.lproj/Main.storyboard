@@ -117,7 +117,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="220" height="216"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="RKR-zo-n8s"/>
-                                    <constraint firstAttribute="height" constant="220" id="nXg-J6-IWu"/>
+                                    <constraint firstAttribute="height" constant="216" id="nXg-J6-IWu"/>
                                 </constraints>
                             </pickerView>
                         </subviews>

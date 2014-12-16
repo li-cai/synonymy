@@ -10,6 +10,9 @@
 
 @interface SynonymPickerVC : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 
-- (void) setSynonyms:(NSMutableArray *)synonyms;
+@property (nonatomic) IBOutlet UIPickerView *pickerView;
+
+- (void) setSynonyms:(NSMutableArray
+                      *)synonyms;
 
 @end

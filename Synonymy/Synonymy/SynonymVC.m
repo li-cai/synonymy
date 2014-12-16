@@ -89,7 +89,6 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         
         [self.popover presentPopoverFromRect:wordRect inView:_swipeArea
                         permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        
     }
 }
 
@@ -104,29 +103,21 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     NSString *swipedWord = [self getWordAtRange:textRange];
     
     if ([_sentence.origin valueForKey:swipedWord] == nil) {
-        NSLog(@"hue");
         [self loadSynonymsOfWord:swipedWord inRange:range textRange:textRange];
     }
     else {
         NSString *originalRange = [_sentence.origin valueForKey:swipedWord];
         
-        [self swapWithSynonym:(NSString *)originalRange textRange:range];
+        NSString *word = [_sentence.rangeToWord valueForKey:originalRange];
+        NSString *synonym = [self getSynonym:originalRange ofWord:word];
+        
+        [self swapWord:word withSyn:synonym range:range];
     }
 }
 
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
-
-//- (void) onSingleTap:(UITapGestureRecognizer *)recognizer {
-//    CGPoint tapPt = [recognizer locationInView:_swipeArea];
-//    
-//    NSString *tappedWord = [self getWordAtPosition:tapPt inTextView:_swipeArea];
-//    
-//    [self loadSynonymsOfWord:tappedWord];
-
-//}
-
 
 // get range of the word at the given position in the given textview
 - (UITextRange *) getWordRangeAtPosition:(CGPoint)position inTextView:(UITextView *)textView {
@@ -145,20 +136,20 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     return [_swipeArea textInRange:textRange];
 }
 
-- (void) swapWithSynonym:(NSString *)originalRange textRange:(NSRange)range {
+- (void) swapWord:(NSString *)word withSyn:(NSString *)syn range:(NSRange)range {
     
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor grapefruitColor] range:range];
     
-    NSNumber *num = [_sentence.syncount valueForKey:originalRange];
-    int count = [num intValue];
+//    NSNumber *num = [_sentence.syncount valueForKey:originalRange];
+//    int count = [num intValue];
     
-    NSString *word = [_sentence.rangeToWord valueForKey:originalRange];
-    NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
-    NSString *syn = synonyms[count];
+//    NSString *word = [_sentence.rangeToWord valueForKey:originalRange];
+//    NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
+//    NSString *syn = synonyms[count];
     
     if (syn) {
-        [_sentence.origin setValue:originalRange forKey:syn];
+        //[_sentence.origin setValue:originalRange forKey:syn];
         
         if (syn == word) {
             [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
@@ -166,6 +157,26 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         
         [string replaceCharactersInRange:range withString:syn];
         [_swipeArea setAttributedText:string];
+        
+//        count++;
+//        if (count > synonyms.count - 1) {
+//            count = 0;
+//        }
+        
+//        NSNumber *newNum = [NSNumber numberWithInt:count];
+//        [_sentence.syncount setValue:newNum forKey:originalRange];
+    }
+}
+
+- (NSString *) getSynonym:(NSString *)originalRange ofWord:(NSString *)word {
+    NSNumber *num = [_sentence.syncount valueForKey:originalRange];
+    int count = [num intValue];
+    
+    NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
+    NSString *syn = synonyms[count];
+    
+    if (syn) {
+        [_sentence.origin setValue:originalRange forKey:syn];
         
         count++;
         if (count > synonyms.count - 1) {
@@ -175,6 +186,8 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         NSNumber *newNum = [NSNumber numberWithInt:count];
         [_sentence.syncount setValue:newNum forKey:originalRange];
     }
+    
+    return syn;
 }
 
 // helper method for converting UITextRange to NSRange
@@ -253,7 +266,10 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                  if (_isSwipe) {
                                                                      [_sentence.syncount setValue:[NSNumber numberWithInt:1] forKey:rangeSTR];
                                                                      
-                                                                     [self swapWithSynonym:rangeSTR textRange:range];
+                                                                     NSString *word = [_sentence.rangeToWord valueForKey:rangeSTR];
+                                                                     NSString *synonym = [self getSynonym:rangeSTR ofWord:word];
+                                                                     
+                                                                     [self swapWord:word withSyn:synonym range:range];
                                                                  }
                                                                  else {
                                                                      [self showSynonymPicker:rangeSTR textRange:textRange];

@@ -9,7 +9,6 @@
 #import "SynonymPickerVC.h"
 
 @interface SynonymPickerVC ()
-@property (nonatomic) IBOutlet UIPickerView *pickerView;
 @property (nonatomic, strong) NSMutableArray *synonyms;
 @end
 
@@ -44,6 +43,10 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return _synonyms[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSLog(_synonyms[row]);
 }
 
 /*
