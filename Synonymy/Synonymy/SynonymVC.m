@@ -57,6 +57,10 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                              selector:@selector(onSelectionNotification:)
                                                  name:@"SelectionNotification"
                                                object:nil];
+    UIImage *favicon = [UIImage imageNamed:@"HeartIcon"];
+    UIImageView *favicon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeartIcon"]];
+    UIBarButtonItem *fav = [[UIBarButtonItem alloc] initWithCustomView:favicon];
+    self.navigationItem.rightBarButtonItem = fav;
 }
 
 // set current sentence displayed

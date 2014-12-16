@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="The evening breeze was pale and chilly when the squirrel tred up the verdant hill. " translatesAutoresizingMaskIntoConstraints="NO" id="uQO-Oz-uSj">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="The evening breeze was pale and chilly when the squirrel tred up the verdant hill. " translatesAutoresizingMaskIntoConstraints="NO" id="uQO-Oz-uSj">
                                 <rect key="frame" x="0.0" y="378" width="600" height="280"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -68,9 +68,7 @@
                             <constraint firstItem="7OU-Kw-QY9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="281" id="ydK-R4-pv6"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Add" image="AddIcon" id="z5b-Qm-Q2C">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="87Q-G5-Qaj"/>
                     <connections>
                         <outlet property="enterArrow" destination="0Hx-2o-UGh" id="956-J0-wWt"/>
                         <outlet property="textView" destination="uQO-Oz-uSj" id="Nyr-Vm-IFQ"/>
@@ -78,7 +76,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-100" y="247"/>
+            <point key="canvasLocation" x="712" y="247"/>
         </scene>
         <!--FavoritesVC-->
         <scene sceneID="hDA-vC-NLd">
@@ -177,7 +175,7 @@
                         <color key="backgroundColor" red="0.92549019607843142" green="0.94117647058823528" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="ZgX-aU-6vO"/>
+                        <segue destination="Z66-MU-fZg" kind="relationship" relationship="viewControllers" id="ZgX-aU-6vO"/>
                         <segue destination="L6m-zK-vFk" kind="relationship" relationship="viewControllers" id="7GZ-Xg-RGn"/>
                         <segue destination="bQh-7N-2dw" kind="relationship" relationship="viewControllers" id="wjt-Ik-rVK"/>
                     </connections>
@@ -215,16 +213,6 @@
                                 </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKR-UM-HQJ" userLabel="〈">
-                                <rect key="frame" x="40" y="90" width="94" height="58"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="80"/>
-                                <state key="normal" title="〈 ">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="qJW-Lj-BrL" kind="show" id="uh9-av-D75"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.94509803920000002" green="0.76862745099999996" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -238,7 +226,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Trc-3W-ygL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="554" y="247"/>
+            <point key="canvasLocation" x="1366" y="247"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="njr-rk-STB">
@@ -262,6 +250,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8n6-oy-gup" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-100" y="968"/>
+        </scene>
+        <!--Add-->
+        <scene sceneID="uzM-pJ-nOd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Z66-MU-fZg" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Add" image="AddIcon" id="z5b-Qm-Q2C">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Go-Jg-2Yz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="W1k-sA-PVr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kUf-eB-kZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-100" y="247"/>
         </scene>
     </scenes>
     <resources>

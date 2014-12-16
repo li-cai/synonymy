@@ -29,6 +29,8 @@
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[UINavigationBar appearance] setTranslucent:NO];
     
+    [[UIBarButtonItem appearance] setTintColor:[UIColor turquoiseColor]];
+    
     return YES;
 }
 

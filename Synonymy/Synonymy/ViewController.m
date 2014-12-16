@@ -50,6 +50,7 @@
             [_history addObject:hist];
         }
         
+        
         SynonymVC *controller = (SynonymVC *) segue.destinationViewController;
         [controller setSentence:sentence];
     }
