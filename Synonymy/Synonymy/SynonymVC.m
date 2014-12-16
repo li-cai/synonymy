@@ -10,7 +10,6 @@
 #import "SynonymPickerVC.h"
 #import "UIColor+Extensions.h"
 #import "DataStore.h"
-#import "Favorite.h"
 
 NSString *THESAURUS_URL = @"http://words.bighugelabs.com/api/2/";
 NSString *THESAURUS_URL_SUFFIX = @"/json";
@@ -23,10 +22,8 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     BOOL _attrTextSet;
     BOOL _pickerDisplayed;
     
-    //NSString *_originalrange;
     NSRange _range;
     CGPoint _pressPt;
-    //NSString *_currentword;
     
     NSMutableArray *_favorites;
     Favorite *_favorite;
@@ -122,6 +119,10 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 - (void) unfavorite {
     [_favorites removeObject:_favorite];
     
+    self.navigationItem.rightBarButtonItem = _fav;
+}
+
+- (void) resetFav {
     self.navigationItem.rightBarButtonItem = _fav;
 }
 
@@ -282,6 +283,8 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         
         [string replaceCharactersInRange:range withString:syn];
         [_swipeArea setAttributedText:string];
+        
+        [self resetFav];
     }
 }
 
@@ -320,17 +323,21 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     return NSMakeRange(location, length);
 }
 
-- (void) colorWord:(NSRange)range {
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
-    
-    [string addAttribute:NSForegroundColorAttributeName value:[UIColor alizarinColor] range:range];
-    
-    [_swipeArea setAttributedText:string];
-}
+//- (void) colorWord:(NSRange)range {
+//    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
+//    
+//    [string addAttribute:NSForegroundColorAttributeName value:[UIColor alizarinColor] range:range];
+//    
+//    [_swipeArea setAttributedText:string];
+//}
 
 - (void) setAttrText:(NSAttributedString *)text {
     _attrText = text;
     _attrTextSet = YES;
+}
+
+- (void) setFavorite:(Favorite *)fav {
+    _favorite = fav;
 }
 
 

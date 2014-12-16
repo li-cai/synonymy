@@ -26,8 +26,9 @@
     // Do any additional setup after loading the view, typically from a nib.
 
     _textView.delegate = self;
+    
     //[_textView becomeFirstResponder];
-    _textView.clearsOnInsertion = YES;
+    //_textView.clearsOnInsertion = YES;
     
     _history = [DataStore sharedStore].history;
 }
@@ -35,6 +36,7 @@
 - (void) textViewDidBeginEditing:(UITextView *)textView {
     //textView.text = @"";
 }
+
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
@@ -52,6 +54,10 @@
         SynonymVC *controller = (SynonymVC *) segue.destinationViewController;
         [controller setSentence:sentence];
     }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    return textView.text.length + (text.length - range.length) <= 120;
 }
 
 - (void)didReceiveMemoryWarning {
