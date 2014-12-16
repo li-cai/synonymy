@@ -46,7 +46,9 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSLog(_synonyms[row]);
+    
+    NSDictionary *userInfo = @{@"selected" : _synonyms[row]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SelectionNotification" object:nil userInfo:userInfo];
 }
 
 /*

@@ -16,7 +16,11 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 
 @interface SynonymVC () {
     NSURLSession *_session;
+    
     BOOL _isSwipe;
+    
+    NSString *_originalrange;
+    NSRange _range;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *swipeArea;
@@ -46,6 +50,11 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPress:)];
     [_swipeArea addGestureRecognizer:longPress];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onSelectionNotification:)
+                                                 name:@"SelectionNotification"
+                                               object:nil];
 }
 
 // set current sentence displayed
@@ -60,16 +69,27 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     CGPoint pressPt = [recognizer locationInView:_swipeArea];
     
     UITextRange *textRange = [self getWordRangeAtPosition:pressPt inTextView:_swipeArea];
-    NSRange range = [self rangeInTextView:_swipeArea textRange:textRange];
+    _range = [self rangeInTextView:_swipeArea textRange:textRange];
     NSString *pressedWord = [self getWordAtRange:textRange];
     
     if ([_sentence.origin valueForKey:pressedWord] == nil) {
-        [self loadSynonymsOfWord:pressedWord inRange:range textRange:textRange];
+        [self loadSynonymsOfWord:pressedWord inRange:_range textRange:textRange];
     }
     else {
-        NSString *originalRange = [_sentence.origin valueForKey:pressedWord];
+        _originalrange = [_sentence.origin valueForKey:pressedWord];
         
-        [self showSynonymPicker:originalRange textRange:textRange];
+        [self showSynonymPicker:_originalrange textRange:textRange];
+    }
+}
+
+- (void) onSelectionNotification:(NSNotification *)notification {
+    NSString *synonym = notification.userInfo[@"selected"];
+    NSString *word = [_sentence.rangeToWord valueForKey:_originalrange];
+    
+    if (synonym) {
+        [_sentence.origin setValue:_originalrange forKey:synonym];
+        
+        [self swapWord:word withSyn:synonym range:_range];
     }
 }
 
@@ -272,6 +292,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                      [self swapWord:word withSyn:synonym range:range];
                                                                  }
                                                                  else {
+                                                                     _originalrange = rangeSTR;
                                                                      [self showSynonymPicker:rangeSTR textRange:textRange];
                                                                  }
                                                              });

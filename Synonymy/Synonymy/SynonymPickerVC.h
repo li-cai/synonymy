@@ -12,7 +12,6 @@
 
 @property (nonatomic) IBOutlet UIPickerView *pickerView;
 
-- (void) setSynonyms:(NSMutableArray
-                      *)synonyms;
+- (void) setSynonyms:(NSMutableArray *)synonyms;
 
 @end
