@@ -21,10 +21,10 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     
     BOOL _isSwipe;
     
-    NSString *_originalrange;
+    //NSString *_originalrange;
     NSRange _range;
     CGPoint _pressPt;
-    NSString *_currentword;
+    //NSString *_currentword;
     
     NSMutableArray *_favorites;
     Favorite *_favorite;
@@ -100,7 +100,6 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 }
 
 - (void) unfavorite {
-    //_sentence.isFavorite = NO;
     [_favorites removeObject:_favorite];
     
     self.navigationItem.rightBarButtonItem = _fav;
@@ -120,49 +119,52 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     UITextRange *textRange = [self getWordRangeAtPosition:_pressPt inTextView:_swipeArea];
     _range = [self rangeInTextView:_swipeArea textRange:textRange];
     NSString *pressedWord = [self getWordAtRange:textRange];
-    _currentword = pressedWord;
+    _sentence.currentword = pressedWord;
     
     if ([_sentence.origin valueForKey:pressedWord] == nil) {
         [self loadSynonymsOfWord:pressedWord inRange:_range textRange:textRange];
     }
     else {
-        _originalrange = [_sentence.origin valueForKey:pressedWord];
+        _sentence.originalrange = [_sentence.origin valueForKey:pressedWord];
         
-        [self showSynonymPicker:_originalrange textRange:textRange];
+        [self showSynonymPicker:_sentence.originalrange textRange:textRange];
     }
 }
 
 - (void) onSelectionNotification:(NSNotification *)notification {
     NSString *synonym = notification.userInfo[@"selected"];
-    NSString *word = [_sentence.rangeToWord valueForKey:_originalrange];
-    
+    NSString *word = [_sentence.rangeToWord valueForKey:_sentence.originalrange];
     NSAttributedString *text = _swipeArea.attributedText;
+    
     NSUInteger length = [text length];
     NSRange range = NSMakeRange(0, length);
     NSRange replace_range = NSMakeRange(0, 0);
     
-    if (word && _currentword && _originalrange) {
+    NSString *currentword = _sentence.currentword;
+    NSString *originalrange= _sentence.originalrange;
+    
+    if (word && currentword && originalrange) {
         while (range.location != NSNotFound) {
-            range = [[text string] rangeOfString:_currentword options:0 range:range];
+            range = [[text string] rangeOfString:currentword options:0 range:range];
             
             if (range.location != NSNotFound) {
-                replace_range = NSMakeRange(range.location, [_currentword length]);
+                replace_range = NSMakeRange(range.location, [currentword length]);
                 break;
             }
         }
         
         if (synonym) {
-            [_sentence.origin setValue:_originalrange forKey:synonym];
+            [_sentence.origin setValue:originalrange forKey:synonym];
             
             [self swapWord:word withSyn:synonym range:replace_range];
-            _currentword = synonym;
+            _sentence.currentword = synonym;
             
             NSArray *synonyms = [_sentence.synonyms valueForKey:word];
             NSUInteger index = [synonyms indexOfObject:synonym];
             index++;
             
             NSNumber *newcount = [NSNumber numberWithInteger:index];
-            [_sentence.syncount setValue:newcount forKey:_originalrange];
+            [_sentence.syncount setValue:newcount forKey:_sentence.originalrange];
         }
     }
 }
@@ -174,11 +176,12 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     CGRect wordRect = [_swipeArea firstRectForRange:textRange];
     
     if (synonyms != nil) {
+        
         SynonymPickerVC *pickerVC = [self.storyboard
                                       instantiateViewControllerWithIdentifier:@"SynonymPicker"];
         [pickerVC setSynonyms:synonyms];
-        NSUInteger pickindex = [synonyms indexOfObject:_currentword];
-        //[pickerVC.pickerView selectRow:pickindex inComponent:0 animated:NO];
+        
+        NSUInteger pickindex = [synonyms indexOfObject:_sentence.currentword];
         [pickerVC setIndex:pickindex];
         
         self.popover = [[UIPopoverController alloc] initWithContentViewController:pickerVC];
@@ -212,7 +215,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         
         [self swapWord:word withSyn:synonym range:range];
         
-        _currentword = synonym;
+        _sentence.currentword = synonym;
     }
 }
 
@@ -357,11 +360,11 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                      [self swapWord:word withSyn:synonym range:range];
                                                                  }
                                                                  else {
-                                                                     _originalrange = rangeSTR;
+                                                                     _sentence.originalrange = rangeSTR;
                                                                      [self showSynonymPicker:rangeSTR textRange:textRange];
                                                                  }
                                                                  
-                                                                 _currentword = word;
+                                                                 _sentence.currentword = word;
                                                              });
                                                          }
                                                      }
