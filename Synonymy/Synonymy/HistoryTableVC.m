@@ -72,7 +72,7 @@ NSString *PLACEHOLDER = @"No sentences have been added yet.";
     cell.textLabel.font  = myFont;
     
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor grapefruitColor];
+    bgColorView.backgroundColor = [UIColor mintColor];
     [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
