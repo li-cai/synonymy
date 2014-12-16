@@ -78,26 +78,33 @@
             </objects>
             <point key="canvasLocation" x="712" y="247"/>
         </scene>
-        <!--FavoritesVC-->
-        <scene sceneID="hDA-vC-NLd">
+        <!--FavoritesTableVC-->
+        <scene sceneID="3k3-l0-FjY">
             <objects>
-                <viewController id="bQh-7N-2dw" userLabel="FavoritesVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="e4A-ub-1Gh"/>
-                        <viewControllerLayoutGuide type="bottom" id="4xH-tn-lTO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rRF-Tp-zcu">
+                <tableViewController title="FavoritesTableVC" id="ust-Lr-uM5" customClass="FavoritesTableVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gSm-o7-Mso">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="Fqu-2G-S5x">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
-                    </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="t5S-Zd-0Wj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <inset key="separatorInset" minX="15" minY="0.0" maxX="20" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Plain" id="RMF-7Z-56x">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RMF-7Z-56x" id="GsJ-LN-dY8">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ust-Lr-uM5" id="6Y8-YJ-va4"/>
+                            <outlet property="delegate" destination="ust-Lr-uM5" id="cQh-zd-mT2"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Favorites" id="Ueb-ut-yPD"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="knJ-q1-YRS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-114" y="1690"/>
+            <point key="canvasLocation" x="-174" y="1529"/>
         </scene>
         <!--Synonym PickerVC-->
         <scene sceneID="xl7-wA-rpc">
@@ -133,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1WQ-mj-oj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="554" y="1683"/>
+            <point key="canvasLocation" x="522" y="1601"/>
         </scene>
         <!--HistoryTableVC-->
         <scene sceneID="ZtO-7d-7T7">
@@ -150,7 +157,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <color key="tintColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="20" maxY="0.0"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -162,7 +169,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hpr-fr-Sih" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="739" y="977"/>
+            <point key="canvasLocation" x="1366" y="977"/>
         </scene>
         <!--Tab BarVC-->
         <scene sceneID="XyL-N5-qE9">
@@ -176,8 +183,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="Z66-MU-fZg" kind="relationship" relationship="viewControllers" id="ZgX-aU-6vO"/>
+                        <segue destination="Esf-Pa-VeS" kind="relationship" relationship="viewControllers" id="vNQ-Fd-Rif"/>
                         <segue destination="L6m-zK-vFk" kind="relationship" relationship="viewControllers" id="7GZ-Xg-RGn"/>
-                        <segue destination="bQh-7N-2dw" kind="relationship" relationship="viewControllers" id="wjt-Ik-rVK"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tt5-ks-AKM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -249,7 +256,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8n6-oy-gup" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-100" y="968"/>
+            <point key="canvasLocation" x="712" y="977"/>
         </scene>
         <!--Add-->
         <scene sceneID="uzM-pJ-nOd">
@@ -271,6 +278,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kUf-eB-kZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-100" y="247"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="SPz-GL-nnE">
+            <objects>
+                <navigationController title="Favorites" automaticallyAdjustsScrollViewInsets="NO" id="Esf-Pa-VeS" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="VmX-l1-H1V">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KUL-qH-oS2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ust-Lr-uM5" kind="relationship" relationship="rootViewController" id="KZv-me-Shx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEu-SI-Onr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-986" y="1529"/>
         </scene>
     </scenes>
     <resources>
