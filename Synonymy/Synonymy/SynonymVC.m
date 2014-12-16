@@ -64,18 +64,20 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     NSString *pressedWord = [self getWordAtRange:textRange];
     
     if ([_sentence.origin valueForKey:pressedWord] == nil) {
-        [self loadSynonymsOfWord:pressedWord inRange:range];
+        [self loadSynonymsOfWord:pressedWord inRange:range textRange:textRange];
     }
     else {
         NSString *originalRange = [_sentence.origin valueForKey:pressedWord];
-        [self showSynonymPicker:originalRange];
+        
+        [self showSynonymPicker:originalRange textRange:textRange];
     }
 }
 
-- (void) showSynonymPicker:(NSString *)originalRange {
+- (void) showSynonymPicker:(NSString *)originalRange textRange:(UITextRange *)textRange {
     
     NSString *word = [_sentence.rangeToWord valueForKey:originalRange];
     NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
+    CGRect wordRect = [_swipeArea firstRectForRange:textRange];
     
     if (synonyms != nil) {
         SynonymPickerVC *pickerVC = [self.storyboard
@@ -85,8 +87,9 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         self.popover = [[UIPopoverController alloc] initWithContentViewController:pickerVC];
         self.popover.delegate = self;
         
-        [self.popover presentPopoverFromRect:_swipeArea.frame inView:_swipeArea
-                    permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        [self.popover presentPopoverFromRect:wordRect inView:_swipeArea
+                        permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
     }
 }
 
@@ -102,7 +105,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     
     if ([_sentence.origin valueForKey:swipedWord] == nil) {
         NSLog(@"hue");
-        [self loadSynonymsOfWord:swipedWord inRange:range];
+        [self loadSynonymsOfWord:swipedWord inRange:range textRange:textRange];
     }
     else {
         NSString *originalRange = [_sentence.origin valueForKey:swipedWord];
@@ -197,7 +200,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 
 
 // loads synonyms of given word by querying API
-- (void) loadSynonymsOfWord:(NSString *)word inRange:(NSRange)range {
+- (void) loadSynonymsOfWord:(NSString *)word inRange:(NSRange)range textRange:(UITextRange *)textRange {
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     
     _session = [NSURLSession sessionWithConfiguration:config];
@@ -253,7 +256,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                      [self swapWithSynonym:rangeSTR textRange:range];
                                                                  }
                                                                  else {
-                                                                     [self showSynonymPicker:rangeSTR];
+                                                                     [self showSynonymPicker:rangeSTR textRange:textRange];
                                                                  }
                                                              });
                                                          }
