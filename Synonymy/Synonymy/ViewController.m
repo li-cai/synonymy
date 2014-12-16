@@ -38,7 +38,6 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    
     if ([[segue identifier] isEqualToString:@"synonymize"] && ![_textView.text isEqual: @""]
         && _textView.text != nil) {
         
@@ -49,7 +48,6 @@
         if (![last.sentence isEqual:_textView.text]) {
             [_history addObject:hist];
         }
-        
         
         SynonymVC *controller = (SynonymVC *) segue.destinationViewController;
         [controller setSentence:sentence];

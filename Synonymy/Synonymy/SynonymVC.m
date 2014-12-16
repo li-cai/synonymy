@@ -9,6 +9,8 @@
 #import "SynonymVC.h"
 #import "SynonymPickerVC.h"
 #import "UIColor+Extensions.h"
+#import "DataStore.h"
+#import "Favorite.h"
 
 NSString *THESAURUS_URL = @"http://words.bighugelabs.com/api/2/";
 NSString *THESAURUS_URL_SUFFIX = @"/json";
@@ -23,11 +25,17 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     NSRange _range;
     CGPoint _pressPt;
     NSString *_currentword;
+    
+    NSMutableArray *_favorites;
+    Favorite *_favorite;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *swipeArea;
 @property (nonatomic, strong) Sentence *sentence;
 @property (nonatomic, strong) UIPopoverController *popover;
+
+@property (nonatomic) UIBarButtonItem *fav;
+@property (nonatomic) UIBarButtonItem *unfav;
 
 @end
 
@@ -57,10 +65,45 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                              selector:@selector(onSelectionNotification:)
                                                  name:@"SelectionNotification"
                                                object:nil];
+    
     UIImage *favicon = [UIImage imageNamed:@"HeartIcon"];
-    UIImageView *favicon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeartIcon"]];
-    UIBarButtonItem *fav = [[UIBarButtonItem alloc] initWithCustomView:favicon];
-    self.navigationItem.rightBarButtonItem = fav;
+    
+    _fav = [[UIBarButtonItem alloc] initWithImage:favicon
+                                            style:UIBarButtonItemStylePlain
+                                            target:self
+                                            action:@selector(favorite)];
+    
+    _unfav = [[UIBarButtonItem alloc] initWithImage:favicon
+                                              style:UIBarButtonItemStylePlain
+                                             target:self
+                                             action:@selector(unfavorite)];
+    
+    _unfav.tintColor = [UIColor alizarinColor];
+    
+    if (_sentence.isFavorite) {
+        self.navigationItem.rightBarButtonItem = _unfav;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem = _fav;
+    }
+    
+    _favorites = [DataStore sharedStore].favorites;
+}
+
+- (void) favorite {
+    _sentence.isFavorite = YES;
+    _favorite = [[Favorite alloc] initWithSentence:_sentence attrText:_swipeArea.attributedText];
+    
+    [_favorites addObject:_favorite];
+    
+    self.navigationItem.rightBarButtonItem = _unfav;
+}
+
+- (void) unfavorite {
+    //_sentence.isFavorite = NO;
+    [_favorites removeObject:_favorite];
+    
+    self.navigationItem.rightBarButtonItem = _fav;
 }
 
 // set current sentence displayed
@@ -98,27 +141,29 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     NSRange range = NSMakeRange(0, length);
     NSRange replace_range = NSMakeRange(0, 0);
     
-    while (range.location != NSNotFound) {
-        range = [[text string] rangeOfString:_currentword options:0 range:range];
-        
-        if (range.location != NSNotFound) {
-            replace_range = NSMakeRange(range.location, [_currentword length]);
-            break;
+    if (word && _currentword && _originalrange) {
+        while (range.location != NSNotFound) {
+            range = [[text string] rangeOfString:_currentword options:0 range:range];
+            
+            if (range.location != NSNotFound) {
+                replace_range = NSMakeRange(range.location, [_currentword length]);
+                break;
+            }
         }
-    }
-    
-    if (synonym) {
-        [_sentence.origin setValue:_originalrange forKey:synonym];
         
-        [self swapWord:word withSyn:synonym range:replace_range];
-        _currentword = synonym;
-        
-        NSArray *synonyms = [_sentence.synonyms valueForKey:word];
-        NSUInteger index = [synonyms indexOfObject:synonym];
-        index++;
-        
-        NSNumber *newcount = [NSNumber numberWithInteger:index];
-        [_sentence.syncount setValue:newcount forKey:_originalrange];
+        if (synonym) {
+            [_sentence.origin setValue:_originalrange forKey:synonym];
+            
+            [self swapWord:word withSyn:synonym range:replace_range];
+            _currentword = synonym;
+            
+            NSArray *synonyms = [_sentence.synonyms valueForKey:word];
+            NSUInteger index = [synonyms indexOfObject:synonym];
+            index++;
+            
+            NSNumber *newcount = [NSNumber numberWithInteger:index];
+            [_sentence.syncount setValue:newcount forKey:_originalrange];
+        }
     }
 }
 

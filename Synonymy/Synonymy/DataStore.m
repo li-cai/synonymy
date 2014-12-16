@@ -29,6 +29,7 @@
     
     if (self) {
         self.history = [[NSMutableArray alloc] init];
+        self.favorites = [[NSMutableArray alloc] init];
     }
     
     return self;

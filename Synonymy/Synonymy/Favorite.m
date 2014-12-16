@@ -10,4 +10,13 @@
 
 @implementation Favorite
 
+- (instancetype) initWithSentence:(Sentence *)sentence attrText:(NSAttributedString *)text {
+    if (self) {
+        _sentence = sentence;
+        _highlighted = text;
+    }
+    
+    return self;
+}
+
 @end

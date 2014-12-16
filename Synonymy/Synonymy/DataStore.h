@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface DataStore : NSObject
-@property (nonatomic) NSMutableArray *history;
+
+@property (nonatomic, strong) NSMutableArray *history;
+@property (nonatomic, strong) NSMutableArray *favorites;
 
 + (instancetype) sharedStore;
 

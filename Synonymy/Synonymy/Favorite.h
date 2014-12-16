@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Sentence.h"
 
 @interface Favorite : NSObject
+
+@property (nonatomic, strong) Sentence *sentence;
+@property (nonatomic, strong) NSAttributedString *highlighted;
+
+- (instancetype) initWithSentence:(Sentence *)sentence attrText:(NSAttributedString *)text;
 
 @end
