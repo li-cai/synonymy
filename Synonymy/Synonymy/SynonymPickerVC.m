@@ -10,6 +10,7 @@
 
 @interface SynonymPickerVC ()
 @property (nonatomic, strong) NSMutableArray *synonyms;
+@property (nonatomic) NSUInteger index;
 @end
 
 @implementation SynonymPickerVC
@@ -24,6 +25,10 @@
     [self setPreferredContentSize:CGSizeMake(220, 210)];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [_pickerView selectRow:_index inComponent:0 animated:NO];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -31,6 +36,10 @@
 
 - (void) setSynonyms:(NSMutableArray *)synonyms {
     _synonyms = synonyms;
+}
+
+- (void) setIndex:(NSUInteger)index {
+    _index = index;
 }
 
 - (int) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
