@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSMutableDictionary *syncount;
 @property (nonatomic, strong) NSMutableDictionary *origin;
 @property (nonatomic, strong) NSMutableDictionary *rangeToWord;
+@property (nonatomic) BOOL isFavorite;
 
 - (instancetype) initWithSentence:(NSString *)sentence;
 

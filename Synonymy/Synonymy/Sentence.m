@@ -20,6 +20,8 @@
         _syncount = [NSMutableDictionary dictionary];
         _origin = [NSMutableDictionary dictionary];
         _rangeToWord = [NSMutableDictionary dictionary];
+        
+        _isFavorite = NO;
     }
     
     return self;
