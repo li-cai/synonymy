@@ -152,13 +152,10 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
 }
 
 - (void) onSelectionNotification:(NSNotification *)notification {
-    NSLog(@"NOOOOOOOO");
     
     NSString *synonym = notification.userInfo[@"selected"];
     NSString *word = [_sentence.rangeToWord valueForKey:_sentence.originalrange];
     NSAttributedString *text = _swipeArea.attributedText;
-    
-    NSLog(@"%@", text.string);
     
     NSUInteger length = [text length];
     NSRange range = NSMakeRange(0, length);
@@ -187,6 +184,10 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
             NSArray *synonyms = [_sentence.synonyms valueForKey:word];
             NSUInteger index = [synonyms indexOfObject:synonym];
             index++;
+        
+            if (index > synonyms.count - 1) {
+                index = 0;
+            }
             
             NSNumber *newcount = [NSNumber numberWithInteger:index];
             [_sentence.syncount setValue:newcount forKey:_sentence.originalrange];
