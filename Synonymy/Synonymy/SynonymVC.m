@@ -21,6 +21,8 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     
     NSString *_originalrange;
     NSRange _range;
+    CGPoint _pressPt;
+    NSString *_currentword;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *swipeArea;
@@ -66,11 +68,12 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     
     _isSwipe = NO;
     
-    CGPoint pressPt = [recognizer locationInView:_swipeArea];
+    _pressPt = [recognizer locationInView:_swipeArea];
     
-    UITextRange *textRange = [self getWordRangeAtPosition:pressPt inTextView:_swipeArea];
+    UITextRange *textRange = [self getWordRangeAtPosition:_pressPt inTextView:_swipeArea];
     _range = [self rangeInTextView:_swipeArea textRange:textRange];
     NSString *pressedWord = [self getWordAtRange:textRange];
+    _currentword = pressedWord;
     
     if ([_sentence.origin valueForKey:pressedWord] == nil) {
         [self loadSynonymsOfWord:pressedWord inRange:_range textRange:textRange];
@@ -86,10 +89,26 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     NSString *synonym = notification.userInfo[@"selected"];
     NSString *word = [_sentence.rangeToWord valueForKey:_originalrange];
     
+    NSAttributedString *text = _swipeArea.attributedText;
+    NSUInteger length = [text length];
+    NSRange range = NSMakeRange(0, length);
+    NSRange replace_range = NSMakeRange(0, 0);
+    
+    while (range.location != NSNotFound) {
+        range = [[text string] rangeOfString:_currentword options:0 range:range];
+        
+        if (range.location != NSNotFound) {
+            replace_range = NSMakeRange(range.location, [_currentword length]);
+            break;
+        }
+    }
+    
+    _currentword = synonym;
+    
     if (synonym) {
         [_sentence.origin setValue:_originalrange forKey:synonym];
         
-        [self swapWord:word withSyn:synonym range:_range];
+        [self swapWord:word withSyn:synonym range:replace_range];
     }
 }
 
@@ -161,15 +180,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor grapefruitColor] range:range];
     
-//    NSNumber *num = [_sentence.syncount valueForKey:originalRange];
-//    int count = [num intValue];
-    
-//    NSString *word = [_sentence.rangeToWord valueForKey:originalRange];
-//    NSMutableArray *synonyms = [_sentence.synonyms valueForKey:word];
-//    NSString *syn = synonyms[count];
-    
     if (syn) {
-        //[_sentence.origin setValue:originalRange forKey:syn];
         
         if (syn == word) {
             [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
@@ -177,14 +188,6 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         
         [string replaceCharactersInRange:range withString:syn];
         [_swipeArea setAttributedText:string];
-        
-//        count++;
-//        if (count > synonyms.count - 1) {
-//            count = 0;
-//        }
-        
-//        NSNumber *newNum = [NSNumber numberWithInt:count];
-//        [_sentence.syncount setValue:newNum forKey:originalRange];
     }
 }
 
