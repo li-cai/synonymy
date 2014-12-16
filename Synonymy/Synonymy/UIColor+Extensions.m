@@ -30,4 +30,8 @@
     return [UIColor colorWithRed:245.0/255 green:110.0/255 blue:56.0/255 alpha:1.0];
 }
 
++ (UIColor *) mintColor {
+    return [UIColor colorWithRed:200.0/255 green:247.0/255 blue:197.0/255 alpha:1.0];
+}
+
 @end
