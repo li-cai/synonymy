@@ -110,20 +110,24 @@
                         <viewControllerLayoutGuide type="bottom" id="04Z-4D-EmT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6SB-D4-0cN">
-                        <rect key="frame" x="0.0" y="0.0" width="220" height="280"/>
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2XS-Md-sr6">
-                                <rect key="frame" x="0.0" y="0.0" width="220" height="280"/>
+                            <pickerView contentMode="scaleToFill" horizontalHuggingPriority="220" verticalHuggingPriority="280" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2XS-Md-sr6">
+                                <rect key="frame" x="0.0" y="0.0" width="220" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="RKR-zo-n8s"/>
+                                    <constraint firstAttribute="height" constant="220" id="nXg-J6-IWu"/>
+                                </constraints>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2XS-Md-sr6" firstAttribute="leading" secondItem="6SB-D4-0cN" secondAttribute="leading" id="UM8-7r-xaM"/>
+                            <constraint firstAttribute="bottom" secondItem="2XS-Md-sr6" secondAttribute="bottom" id="P2a-YA-YUZ"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="220" height="280"/>
+                    <size key="freeformSize" width="220" height="210"/>
                     <connections>
                         <outlet property="pickerView" destination="2XS-Md-sr6" id="p6c-Fl-4nk"/>
                     </connections>

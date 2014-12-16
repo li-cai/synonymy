@@ -22,7 +22,7 @@
     _pickerView.delegate = self;
     _pickerView.dataSource = self;
     
-    [self setPreferredContentSize:CGSizeMake(220, 280)];
+    [self setPreferredContentSize:CGSizeMake(220, 210)];
 }
 
 - (void)didReceiveMemoryWarning {
