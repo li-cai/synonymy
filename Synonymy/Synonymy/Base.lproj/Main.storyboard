@@ -27,7 +27,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Synonymy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQV-q2-4Rn">
-                                <rect key="frame" x="-1" y="198" width="306" height="125"/>
+                                <rect key="frame" x="-1" y="181" width="306" height="125"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="306" id="AGM-NX-OJ1"/>
                                     <constraint firstAttribute="height" constant="125" id="vVY-Kr-naC"/>
@@ -37,7 +37,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="A unique way to rephrase sentences" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7OU-Kw-QY9">
-                                <rect key="frame" x="3" y="288" width="381" height="50"/>
+                                <rect key="frame" x="3" y="271" width="381" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="021-zV-ZtJ"/>
                                     <constraint firstAttribute="width" constant="381" id="kwH-K5-UgC"/>

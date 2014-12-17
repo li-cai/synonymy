@@ -29,6 +29,11 @@ NSString *PLACEHOLDER = @"No sentences have been added yet.";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.tableView.rowHeight = 110.0;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
     _history = [DataStore sharedStore].history;
     
     if (_history.count == 0) {
@@ -38,8 +43,7 @@ NSString *PLACEHOLDER = @"No sentences have been added yet.";
         _history = temp;
     }
     
-    self.tableView.rowHeight = 110.0;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

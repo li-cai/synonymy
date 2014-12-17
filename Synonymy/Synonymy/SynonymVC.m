@@ -323,14 +323,6 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     return NSMakeRange(location, length);
 }
 
-//- (void) colorWord:(NSRange)range {
-//    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:_swipeArea.attributedText];
-//    
-//    [string addAttribute:NSForegroundColorAttributeName value:[UIColor alizarinColor] range:range];
-//    
-//    [_swipeArea setAttributedText:string];
-//}
-
 - (void) setAttrText:(NSAttributedString *)text {
     _attrText = text;
     _attrTextSet = YES;

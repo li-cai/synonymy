@@ -27,14 +27,13 @@
 
     _textView.delegate = self;
     
-    //[_textView becomeFirstResponder];
-    //_textView.clearsOnInsertion = YES;
-    
     _history = [DataStore sharedStore].history;
+    
+    [_textView setClearsOnInsertion:YES];
 }
 
-- (void) textViewDidBeginEditing:(UITextView *)textView {
-    //textView.text = @"";
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
 }
 
 
