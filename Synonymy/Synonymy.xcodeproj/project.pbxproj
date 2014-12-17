@@ -22,6 +22,8 @@
 		3F3AEA781A3E31FE007E0D20 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F3AEA771A3E31FE007E0D20 /* UIColor+Extensions.m */; };
 		3F6E005C1A2D7853002572D8 /* SynonymVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E005B1A2D7853002572D8 /* SynonymVC.m */; };
 		3FD2F9451A3E8701002DAF0F /* SynonymPickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD2F9441A3E8701002DAF0F /* SynonymPickerVC.m */; };
+		3FDD272F1A40BE32005CD6F1 /* FavoritesTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDD272E1A40BE32005CD6F1 /* FavoritesTableVC.m */; };
+		3FDD27321A40C9C5005CD6F1 /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDD27311A40C9C5005CD6F1 /* Favorite.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,10 @@
 		3F6E005B1A2D7853002572D8 /* SynonymVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynonymVC.m; sourceTree = "<group>"; };
 		3FD2F9431A3E8701002DAF0F /* SynonymPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynonymPickerVC.h; sourceTree = "<group>"; };
 		3FD2F9441A3E8701002DAF0F /* SynonymPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynonymPickerVC.m; sourceTree = "<group>"; };
+		3FDD272D1A40BE32005CD6F1 /* FavoritesTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesTableVC.h; sourceTree = "<group>"; };
+		3FDD272E1A40BE32005CD6F1 /* FavoritesTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesTableVC.m; sourceTree = "<group>"; };
+		3FDD27301A40C9C5005CD6F1 /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favorite.h; sourceTree = "<group>"; };
+		3FDD27311A40C9C5005CD6F1 /* Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favorite.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,12 +115,12 @@
 				3F1B2F401A2D3FA000FFFE03 /* Controllers */,
 				3F07457D1A2D132B0086613B /* AppDelegate.h */,
 				3F07457E1A2D132B0086613B /* AppDelegate.m */,
+				3F3AEA761A3E31FE007E0D20 /* UIColor+Extensions.h */,
+				3F3AEA771A3E31FE007E0D20 /* UIColor+Extensions.m */,
 				3F0745831A2D132B0086613B /* Main.storyboard */,
 				3F0745861A2D132B0086613B /* Images.xcassets */,
 				3F0745881A2D132B0086613B /* LaunchScreen.xib */,
 				3F0745791A2D132B0086613B /* Supporting Files */,
-				3F3AEA761A3E31FE007E0D20 /* UIColor+Extensions.h */,
-				3F3AEA771A3E31FE007E0D20 /* UIColor+Extensions.m */,
 			);
 			path = Synonymy;
 			sourceTree = "<group>";
@@ -154,6 +160,8 @@
 				3F1B2F3E1A2D3F2800FFFE03 /* Sentence.m */,
 				3F2A2E701A3BB08C00F2D5A0 /* History.h */,
 				3F2A2E711A3BB08C00F2D5A0 /* History.m */,
+				3FDD27301A40C9C5005CD6F1 /* Favorite.h */,
+				3FDD27311A40C9C5005CD6F1 /* Favorite.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -161,16 +169,18 @@
 		3F1B2F401A2D3FA000FFFE03 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3F2A2E6D1A3B921D00F2D5A0 /* TabBarVC.h */,
+				3F2A2E6E1A3B921D00F2D5A0 /* TabBarVC.m */,
 				3F0745801A2D132B0086613B /* ViewController.h */,
 				3F0745811A2D132B0086613B /* ViewController.m */,
 				3F6E005A1A2D7853002572D8 /* SynonymVC.h */,
 				3F6E005B1A2D7853002572D8 /* SynonymVC.m */,
-				3F2A2E6D1A3B921D00F2D5A0 /* TabBarVC.h */,
-				3F2A2E6E1A3B921D00F2D5A0 /* TabBarVC.m */,
-				3F2A2E761A3BB2ED00F2D5A0 /* HistoryTableVC.h */,
-				3F2A2E771A3BB2ED00F2D5A0 /* HistoryTableVC.m */,
 				3FD2F9431A3E8701002DAF0F /* SynonymPickerVC.h */,
 				3FD2F9441A3E8701002DAF0F /* SynonymPickerVC.m */,
+				3F2A2E761A3BB2ED00F2D5A0 /* HistoryTableVC.h */,
+				3F2A2E771A3BB2ED00F2D5A0 /* HistoryTableVC.m */,
+				3FDD272D1A40BE32005CD6F1 /* FavoritesTableVC.h */,
+				3FDD272E1A40BE32005CD6F1 /* FavoritesTableVC.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -276,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F0745821A2D132B0086613B /* ViewController.m in Sources */,
+				3FDD272F1A40BE32005CD6F1 /* FavoritesTableVC.m in Sources */,
 				3F6E005C1A2D7853002572D8 /* SynonymVC.m in Sources */,
 				3F07457F1A2D132B0086613B /* AppDelegate.m in Sources */,
 				3F1B2F3F1A2D3F2800FFFE03 /* Sentence.m in Sources */,
@@ -284,6 +295,7 @@
 				3F2A2E751A3BB10000F2D5A0 /* DataStore.m in Sources */,
 				3F2A2E721A3BB08C00F2D5A0 /* History.m in Sources */,
 				3F07457C1A2D132B0086613B /* main.m in Sources */,
+				3FDD27321A40C9C5005CD6F1 /* Favorite.m in Sources */,
 				3F3AEA781A3E31FE007E0D20 /* UIColor+Extensions.m in Sources */,
 				3FD2F9451A3E8701002DAF0F /* SynonymPickerVC.m in Sources */,
 			);
