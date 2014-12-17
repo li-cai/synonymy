@@ -97,6 +97,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     _favorites = [DataStore sharedStore].favorites;
 }
 
+// remove this VC from navigation stack
 - (void) viewDidDisappear:(BOOL)animated {
     NSMutableArray *temp = [[NSMutableArray alloc]
                             initWithArray:self.navigationController.viewControllers];
@@ -105,23 +106,24 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     self.navigationController.viewControllers = temp;
 }
 
+// favorite this combo
 - (void) favorite {
     _sentence.isFavorite = YES;
     _favorite = [[Favorite alloc] initWithSentence:_sentence attrText:_swipeArea.attributedText];
     
     [_favorites addObject:_favorite];
     
-    NSLog(@"%@", _favorites);
-    
     self.navigationItem.rightBarButtonItem = _unfav;
 }
 
+// unfavorite
 - (void) unfavorite {
     [_favorites removeObject:_favorite];
     
     self.navigationItem.rightBarButtonItem = _fav;
 }
 
+// reset when synonyms are changed
 - (void) resetFav {
     self.navigationItem.rightBarButtonItem = _fav;
 }
@@ -131,6 +133,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     _sentence = sentence;
 }
 
+// handle long press by showing picker
 - (void) onLongPress:(UILongPressGestureRecognizer *)recognizer {
     
     _isSwipe = NO;
@@ -152,6 +155,7 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
     }
 }
 
+// on picker selection notification, replace with selection in textview
 - (void) onSelectionNotification:(NSNotification *)notification {
     
     NSString *synonym = notification.userInfo[@"selected"];
@@ -238,10 +242,10 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
         [self loadSynonymsOfWord:swipedWord inRange:range textRange:textRange];
     }
     else {
-        NSString *originalRange = [_sentence.origin valueForKey:swipedWord];
+        _sentence.originalrange = [_sentence.origin valueForKey:swipedWord];
         
-        NSString *word = [_sentence.rangeToWord valueForKey:originalRange];
-        NSString *synonym = [self getSynonym:originalRange ofWord:word];
+        NSString *word = [_sentence.rangeToWord valueForKey:_sentence.originalrange];
+        NSString *synonym = [self getSynonym:_sentence.originalrange ofWord:word];
         
         [self swapWord:word withSyn:synonym range:range];
         
@@ -374,13 +378,22 @@ NSString *THESAURUS_API_KEY = @"d7150974225ed0ec1fcecef0d3174367/";
                                                                  [temp addObjectsFromArray:json[key][@"sim"]];
                                                              }
                                                              
+                                                             NSMutableArray *newtemp = [NSMutableArray array];
+                                                             
+                                                             for (NSString *string in temp) {
+                                                                 NSRange whiteSpaceRange = [string rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
+                                                                 if (whiteSpaceRange.location == NSNotFound) {
+                                                                     [newtemp addObject:string];
+                                                                 }
+                                                             }
+                                                             
                                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
                                                                  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                                                  
-                                                                 [_sentence.synonyms setValue:temp forKey:word];
+                                                                 [_sentence.synonyms setValue:newtemp forKey:word];
                                                                  
-                                                                 if (temp.count == 1) {
+                                                                 if (newtemp.count == 1) {
                                                                      [_sentence.origin setValue:rangeSTR forKey:word];
                                                                  }
                                                                  

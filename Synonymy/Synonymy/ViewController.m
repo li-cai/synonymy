@@ -32,11 +32,6 @@
     [_textView setClearsOnInsertion:YES];
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-    
-}
-
-
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"synonymize"] && ![_textView.text isEqual: @""]
